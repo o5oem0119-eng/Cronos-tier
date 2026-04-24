@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Chronos Tier Script Schema",
+  "type": "object",
+  "properties": {
+    "title": { "type": "string" },
+    "episode_id": { "type": "string" },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "scene_id": { "type": "string" },
+          "chapter": { "type": "string" },
+          "narration": { "type": "string" },
+          "visual_concept": { "type": "string" },
+          "overlay_ui": {
+            "type": "object",
+            "properties": {
+              "widget_type": { "enum": ["STAT_BAR", "WARNING_ALERT", "SYSTEM_LOG", "MAP_ISOLATION", "CHARACTER_PROFILE"] },
+              "data": { "type": "object" }
+            }
+          },
+          "bgm_intent": { "enum": ["EPIC", "DRAMATIC", "TRAGIC", "URGENT", "CYBERPUNK_AMBIENT"] }
+        },
+        "required": ["scene_id", "narration", "visual_concept"]
+      }
+    }
+  }
+}

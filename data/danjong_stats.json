@@ -1,0 +1,40 @@
+{
+  "project": "Chronos Tier - Danjong Incident",
+  "characters": [
+    {
+      "id": "danjong",
+      "name": "이홍위 (단종)",
+      "tier": "SSS",
+      "class": "Glass Cannon",
+      "stats": {
+        "legitimacy": 100,
+        "charisma": 95,
+        "intelligence": 90,
+        "power": 5,
+        "luck": 0
+      },
+      "status": ["Isolated", "Guardian_Glitch"],
+      "passive": "SSS-Rank Legitimacy (Passive Obedience of Subjects)"
+    },
+    {
+      "id": "suyang",
+      "name": "이유 (수양대군)",
+      "tier": "A+",
+      "class": "Bruiser / Meta Breaker",
+      "stats": {
+        "legitimacy": 20,
+        "charisma": 85,
+        "intelligence": 92,
+        "power": 100,
+        "luck": 88
+      },
+      "status": ["Reconstruction_Mindset", "Power_Creep"],
+      "tactics": "Direct Kill, System Hijack"
+    }
+  ],
+  "server_rules": {
+    "regime": "Joseon Dynasty",
+    "meta": "Legitimacy-centric (적통성 중심)",
+    "protection_mechanism": "Regency (수렴청정)"
+  }
+}

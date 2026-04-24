@@ -1,0 +1,51 @@
+{
+  "manifest_version": 3,
+  "name": "TubeFlow - AI 이미지 자동 생성기",
+  "version": "3.3.0",
+  "description": "Google Labs Flow에서 프롬프트 대량 자동 실행 및 이미지 생성 자동화 | 최종수정: 2026-04-02 02:00",
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "downloads",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://labs.google/fx/*"
+  ],
+  "side_panel": {
+    "default_path": "panel/panel.html"
+  },
+  "background": {
+    "service_worker": "scripts/worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://labs.google/fx/*"
+      ],
+      "js": [
+        "scripts/relay.js"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "https://labs.google/fx/*"
+      ],
+      "js": [
+        "scripts/automator.js"
+      ],
+      "world": "MAIN",
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "TubeFlow"
+  }
+}

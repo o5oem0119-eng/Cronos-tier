@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TubeFlow</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <!-- Connection Status -->
+  <div id="conn-bar" class="conn-bar offline">
+    <span class="conn-dot"></span>
+    <span id="conn-label">연결 안 됨</span>
+    <button id="goto-flow" class="open-flow-btn">Flow 이동 &rsaquo;</button>
+  </div>
+
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <span class="brand-icon">&#9889;</span>
+        <span class="brand-name">TubeFlow</span>
+        <span class="brand-ver">v3</span>
+      </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tabs">
+      <button class="tab active" data-tab="prompts" id="tab-btn-prompts">프롬프트</button>
+      <button class="tab" data-tab="settings" id="tab-btn-settings">설정</button>
+      <button class="tab" data-tab="log" id="tab-btn-log">로그</button>
+      <button class="tab" data-tab="info" id="tab-btn-info">정보</button>
+    </nav>
+
+    <!-- Tab: Prompts -->
+    <section id="tab-prompts" class="tab-content active">
+      <div class="card">
+        <label class="card-title"><span id="lbl-prompt-title">프롬프트 입력</span> <span id="prompt-count" class="count-badge">0</span></label>
+        <textarea id="prompt-area" class="prompt-area" placeholder=""></textarea>
+        <div class="row gap-sm mt-8">
+          <button id="btn-import" class="btn btn-ghost"><span class="ico">&#128196;</span> <span id="lbl-import">TXT 불러오기</span></button>
+          <input type="file" id="file-input" accept=".txt" class="hidden">
+          <button id="btn-clear" class="btn btn-ghost btn-ghost-red"><span class="ico">&#128465;</span> <span id="lbl-clear">비우기</span></button>
+        </div>
+      </div>
+
+      <!-- Asset / Character -->
+      <div class="card">
+        <label class="card-title" id="lbl-char-title">캐릭터 에셋</label>
+        <details class="char-details">
+          <summary class="char-summary" id="lbl-char-guide">사용 방법 보기</summary>
+          <p class="card-hint" id="char-hint"></p>
+        </details>
+        <div class="char-add-row">
+          <input type="text" id="char-name" class="input flex-1" placeholder="캐릭터 이름">
+          <input type="text" id="char-query" class="input flex-1" placeholder="검색어 (파일명)">
+          <button id="btn-char-file" class="btn btn-ghost btn-sm" title="파일명 가져오기">&#128206;</button>
+          <input type="file" id="char-file-input" accept="image/*" class="hidden">
+          <button id="btn-add-char" class="btn btn-ghost btn-sm" id="lbl-char-add">+ 추가</button>
+        </div>
+        <div id="char-list" class="char-list"></div>
+
+        <div id="scene-matrix-area" class="scene-matrix-area hidden">
+          <div class="scene-header">
+            <label class="card-subtitle" id="lbl-scene-assign">씬별 캐릭터 배정</label>
+            <div class="scene-header-btns">
+              <button id="btn-scene-all" class="btn btn-ghost btn-xs" id="lbl-scene-all">전체선택</button>
+              <button id="btn-scene-none" class="btn btn-ghost btn-xs" id="lbl-scene-none">전체해제</button>
+            </div>
+          </div>
+          <div id="scene-list" class="scene-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Settings -->
+    <section id="tab-settings" class="tab-content">
+      <!-- Flow 옵션 -->
+      <div class="card">
+        <label class="card-title" id="lbl-flow-options">Flow 옵션</label>
+
+        <div class="field-row">
+          <span id="lbl-model">모델</span>
+          <select id="opt-model" class="input input-sel">
+            <option value="" id="opt-model-none">변경 안 함</option>
+            <option value="Nano Banana Pro">Nano Banana Pro</option>
+            <option value="Nano Banana 2" selected>Nano Banana 2</option>
+            <option value="Imagen 4">Imagen 4</option>
+          </select>
+        </div>
+
+        <div class="field-row">
+          <span id="lbl-ratio">비율</span>
+          <div class="chip-group" id="opt-ratio">
+            <button class="chip ratio-chip active" data-val="16:9"><span class="ratio-icon" style="width:20px;height:12px"></span>16:9</button>
+            <button class="chip ratio-chip" data-val="4:3"><span class="ratio-icon" style="width:16px;height:12px"></span>4:3</button>
+            <button class="chip ratio-chip" data-val="1:1"><span class="ratio-icon" style="width:14px;height:14px"></span>1:1</button>
+            <button class="chip ratio-chip" data-val="3:4"><span class="ratio-icon" style="width:12px;height:16px"></span>3:4</button>
+            <button class="chip ratio-chip" data-val="9:16"><span class="ratio-icon" style="width:10px;height:18px"></span>9:16</button>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <span id="lbl-count">장수</span>
+          <div class="chip-group" id="opt-count">
+            <button class="chip" data-val="x1">x1</button>
+            <button class="chip active" data-val="x2">x2</button>
+            <button class="chip" data-val="x3">x3</button>
+            <button class="chip" data-val="x4">x4</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 기타 설정 -->
+      <div class="card">
+        <label class="card-title" id="lbl-other-settings">기타 설정</label>
+
+        <div class="field-row">
+          <span id="lbl-concurrent">동시 실행</span>
+          <div class="chip-group" id="opt-concurrent">
+            <button class="chip active" data-val="1" id="chip-c1">1개</button>
+            <button class="chip" data-val="2" id="chip-c2">2개</button>
+            <button class="chip" data-val="3" id="chip-c3">3개</button>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <span id="lbl-delay">랜덤 딜레이 (초)</span>
+          <div class="row gap-xs">
+            <input type="number" id="delay-min" class="input input-num" value="5" min="1" max="120">
+            <span class="dim">~</span>
+            <input type="number" id="delay-max" class="input input-num" value="15" min="1" max="120">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <span id="lbl-max-retry">실패 시 재시도</span>
+          <div class="row gap-xs">
+            <input type="number" id="max-retry" class="input input-num" value="3" min="1" max="10">
+            <span class="dim" id="lbl-retry-unit">회</span>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <span id="lbl-auto-dl">자동 다운로드</span>
+          <label class="switch">
+            <input type="checkbox" id="auto-dl" checked>
+            <span class="switch-track"></span>
+          </label>
+        </div>
+
+        <div class="field-row">
+          <span id="lbl-prefix">파일명 접두사</span>
+          <input type="text" id="file-prefix" class="input input-md" value="TF_" placeholder="TF_">
+        </div>
+
+        <div class="field-row">
+          <span id="lbl-dl-folder">저장 폴더</span>
+          <button id="btn-dl-settings" class="btn btn-ghost btn-dl-settings" title="다운로드 설정">&#9881;</button>
+        </div>
+
+        <div class="field-row">
+          <span id="lbl-language">언어</span>
+          <select id="opt-lang" class="input input-sel">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Log -->
+    <section id="tab-log" class="tab-content">
+      <div id="log-box" class="log-box"></div>
+      <div class="log-actions">
+        <button id="btn-clear-log" class="btn btn-ghost btn-sm">로그 지우기</button>
+        <button id="btn-diagnose" class="btn btn-ghost btn-sm">&#128269; <span id="lbl-diagnose">진단</span></button>
+      </div>
+    </section>
+
+    <!-- Tab: Info -->
+    <section id="tab-info" class="tab-content">
+      <div class="card">
+        <div class="info-item">&#127308; <span id="info-yt">디스이즈머니 유튜브</span><br><a href="https://www.youtube.com/@thisis_money" target="_blank" class="info-link">https://www.youtube.com/@thisis_money</a></div>
+        <div class="info-item">&#127909; <span id="info-1">영상제작 자동화 튜브팩토리</span><br><a href="https://tubefactory.kr/" target="_blank" class="info-link">https://tubefactory.kr/</a></div>
+        <div class="info-item">&#128226; <span id="info-2">유튜브 트렌드 분석 및 채널 모니터링 프로그램</span><br><a href="https://tuberadar.kr" target="_blank" class="info-link">https://tuberadar.kr</a></div>
+        <div class="info-item">&#127908; <span id="info-3">카카오톡 오픈채팅</span><br><a href="https://open.kakao.com/o/gLsFYggi" target="_blank" class="info-link">https://open.kakao.com/o/gLsFYggi</a></div>
+        <div class="info-item">&#128233; <span id="info-4">제작 및 비즈니스 문의</span><br><a href="mailto:boxtvstar@gmail.com" class="info-link">boxtvstar@gmail.com</a></div>
+      </div>
+    </section>
+
+    <!-- Progress (always visible when running) -->
+    <div id="progress-area" class="progress-area hidden">
+      <div class="progress-header">
+        <span id="prog-label">0 / 0 완료</span>
+        <span id="prog-pct">0%</span>
+      </div>
+      <div class="prog-track">
+        <div id="prog-fill" class="prog-fill"></div>
+      </div>
+      <div id="prog-current" class="prog-current"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <button id="btn-start" class="btn btn-accent btn-lg">&#9654; 시작</button>
+      <button id="btn-pause" class="btn btn-warn btn-lg" disabled>&#10074;&#10074; 일시정지</button>
+      <button id="btn-stop" class="btn btn-red btn-lg" disabled>&#9632; 중지</button>
+      <button id="btn-reset" class="btn btn-ghost btn-lg">&#8635; 초기화</button>
+    </div>
+
+    <div class="footer">TubeFlow v3.3 &mdash; <span id="lbl-last-updated">최종수정</span>: <span id="last-updated">2026-04-02 02:15</span></div>
+    <div class="disclaimer" id="disclaimer">구글 공식 프로그램이 아닌만큼 과도한 사용으로 인한 피해는 전적으로 본인에게 있습니다.</div>
+    <div class="footer-links">
+      <a href="https://www.youtube.com/@thisis_money" target="_blank" rel="noopener" class="footer-link" title="디스이즈머니 유튜브 채널 — 돈 버는 정보와 부업/수익화 콘텐츠">&#127908; 디스이즈머니</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://tubefactory.kr/" target="_blank" rel="noopener" class="footer-link" title="튜브팩토리 — 영상 제작 자동화 솔루션">&#127909; 튜브팩토리</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://tuberadar.kr" target="_blank" rel="noopener" class="footer-link" title="튜브레이더 — 유튜브 트렌드 분석 및 채널 모니터링 프로그램">&#128202; 튜브레이더</a>
+      <span class="footer-sep">&middot;</span>
+      <a href="https://open.kakao.com/o/gLsFYggi" target="_blank" rel="noopener" class="footer-link" title="유튜버들의 오픈 소통방 — 카카오톡 오픈채팅으로 정보 공유">&#128172; 오픈 소통방</a>
+    </div>
+  </div>
+
+  <script src="panel.js"></script>
+</body>
+</html>

@@ -26,6 +26,8 @@
 | `[HP BAR]` | HP 바 급격 감소 + 경고음 | `<HPBar>` — 잔여 HP 숫자, 색상 단계별 변화 |
 | `[FLASH]` | 화면 반전 + 장면 전환 | `<Flash>` — 0.3초 화이트/블랙 플래시 |
 | `[ZOOM]` | 특정 요소 줌인/줌아웃 | CSS `scale()` 트랜지션 |
+| `[INTRO CARD]` | 인물/세력/사건 첫 등장용 시네마틱 소개 카드 | `<IntroCard>` — 인물 컷아웃, 대형 타이틀, HUD 정보 패널, 플랫 애니메이션 연출 |
+| `[RANKING BOARD]` | 티어/권력/영향력 비교용 2D 순위 연출 | `<RankingBoard>` — 플랫 2D 패널, 순위별 리스트, 티어 배지, 스탯 바 |
 
 ### 2. 페이싱 지시어 처리
 
@@ -110,6 +112,7 @@
   },
   "narration_text": "정통성은 SSS급. 하지만 정치력, 군사력, 방어력, 생존력은 전부 F. 이 빌드는 조선 서버 메타에서 살아남을 수 없는 구조였습니다."
 }
+```
 
 ## 🎨 비주얼 스타일 프리셋
 
@@ -150,3 +153,5 @@
 | **Stat Schema Engine** | `skills/TierZoo_Styling_Guide/stat_schema.json` | 스탯 UI 구조 기준 |
 | **Tier Assignment Engine** | `skills/TierZoo_Styling_Guide/tier_assignment_rules.md` | 티어 카드 표시 기준 |
 | **Generated Stats** | `data/stats/{episode_id}_stats.json` | 실제 캐릭터 스탯 데이터 |
+| **Cinematic Intro Card Reference** | `reference/remotion_ui_references/cinematic_intro_card.md` | 인물 등장 카드 레이아웃 참고 |
+| **Ranking Board Reference** | `reference/remotion_ui_references/ranking_board_2d.md` | 순위/티어 비교용 2D 랭킹 보드 연출 참고 |

@@ -1,0 +1,37 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_07",
+        "time_range": "00:00-00:10",
+        "components": [
+            {
+                "type": "IntroCard",
+                "props": {
+                    "character": "이홍위 (단종)",
+                    "class": "Ultimate Heir(초적통 계승자)",
+                    "role": "Character Reveal",
+                    "tier": "SSS",
+                    "stats": {
+                        "legitimacy": 100,
+                        "charisma": 95,
+                        "intelligence": 90,
+                        "power": 5,
+                        "luck": 0
+                    },
+                    "passive": "SSS-Rank Legitimacy (Passive Obedience of Subjects)",
+                    "debuff": "Guardian_Glitch"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "dramatic_theme",
+            "sfx": [
+                "card_flip"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "ZOOM"
+        ],
+        "narration_text": "오늘 이 빌드의 상속 스탯, 가디언 시스템의 치명적 버그, 카운터 픽 상성, 그리고 최종 티어를 분석해 보겠습니다."
+    }
+}

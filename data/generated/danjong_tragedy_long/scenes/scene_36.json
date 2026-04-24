@@ -1,0 +1,55 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_36",
+        "time_range": "00:01:00-00:02:00",
+        "components": [
+            {
+                "type": "StatCard",
+                "props": {
+                    "character": "이홍위 (단종)",
+                    "stats": {
+                        "legitimacy": 100,
+                        "charisma": 95,
+                        "intelligence": 90,
+                        "power": 5,
+                        "luck": 0
+                    },
+                    "tier": "SSS",
+                    "animation": {
+                        "state_change": "GREY_OUT"
+                    }
+                }
+            },
+            {
+                "type": "HPBar",
+                "props": {
+                    "character": "이홍위 (단종)",
+                    "metric": "integrity",
+                    "from": 100,
+                    "to": 0,
+                    "duration_sec": 3,
+                    "sfx": "heartbeat_fade"
+                }
+            },
+            {
+                "type": "SystemLog",
+                "props": {
+                    "message": "[SYSTEM] 유저 데이터 — 수거 거부. 방치 처리.",
+                    "animation": "STAMP_BANNED",
+                    "severity": "high"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "tension_theme",
+            "sfx": [
+                "water_splash"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "MICRO_PAUSE"
+        ],
+        "narration_text": "시신은 강물에 버려졌습니다. 삼촌이었던 사람한테요. 이 서버 운영진은 대체 뭘 한 겁니까."
+    }
+}

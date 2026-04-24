@@ -1,0 +1,25 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_34",
+        "time_range": "00:00:00-00:00:10",
+        "components": [
+            {
+                "type": "SystemLog",
+                "props": {
+                    "message": "[1456] 복위 이벤트 감지. 사육신 길드 — 처형."
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "tense_background",
+            "sfx": [
+                "alert_chime"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "ZOOM"
+        ],
+        "narration_text": "전부 실패합니다. 그리고 세조는 결단합니다. 불씨를 완전히 꺼야겠다고."
+    }
+}

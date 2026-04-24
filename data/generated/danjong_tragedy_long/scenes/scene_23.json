@@ -1,0 +1,50 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_23",
+        "time_range": "00:00-00:15",
+        "components": [
+            {
+                "type": "StatCompare",
+                "props": {
+                    "left_character": "이홍위 (단종)",
+                    "right_character": "이유 (수양대군)",
+                    "stats": {
+                        "legitimacy": {
+                            "danjong": 120,
+                            "suyang": 30
+                        },
+                        "charisma": {
+                            "danjong": 95,
+                            "suyang": 85
+                        },
+                        "intelligence": {
+                            "danjong": 90,
+                            "suyang": 92
+                        },
+                        "power": {
+                            "danjong": 5,
+                            "suyang": 100
+                        },
+                        "luck": {
+                            "danjong": 0,
+                            "suyang": 88
+                        }
+                    },
+                    "highlight_winner": "danjong",
+                    "animation": "symmetrical_compare"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "competitive_theme",
+            "sfx": [
+                "comparison_bell"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "ZOOM"
+        ],
+        "narration_text": "스탯 시트 비교 들어갑니다. 적통성? 단종 120 대 수양 30. 네, 정면 승부면 단종이 이깁니다. 근데 이 게임은 정면 승부가 아니에요."
+    }
+}

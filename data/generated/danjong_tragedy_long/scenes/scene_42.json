@@ -1,0 +1,29 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_42",
+        "time_range": "00:00-00:05",
+        "components": [
+            {
+                "type": "StatCard",
+                "props": {
+                    "character": "사후 유산도",
+                    "stats": {
+                        "tier": "S"
+                    }
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "narrative_theme",
+            "sfx": [
+                "page_turn",
+                "soft_breeze"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "ZOOM"
+        ],
+        "narration_text": "사후 유산도? S 등급. 200년 뒤 복구 패치에, 산신령 전설까지. 시스템이 지운 캐릭터를 유저들이 직접 다시 설치한 겁니다."
+    }
+}

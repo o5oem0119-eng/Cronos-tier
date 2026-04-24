@@ -1,0 +1,40 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_11",
+        "time_range": "00:00-00:10",
+        "components": [
+            {
+                "type": "StatCard",
+                "props": {
+                    "character": "danjong",
+                    "stats": {
+                        "legitimacy": 100,
+                        "charisma": 95,
+                        "intelligence": 90,
+                        "power": 5,
+                        "luck": 0
+                    },
+                    "tier": "SSS",
+                    "highlight": "legitimacy"
+                }
+            },
+            {
+                "type": "SystemLog",
+                "props": {
+                    "message": "세종의 적장손 + 문종의 적장자 = 유일한 이중 적통",
+                    "animation": "ZOOM"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "suspense_theme",
+            "sfx": [
+                "zoom_in_effect"
+            ]
+        },
+        "visual_effects": [
+            "ZOOM"
+        ],
+        "narration_text": "좀 더 구체적으로 보죠. 이 캐릭터는 조선 500년 역사상 '원손, 세손, 세자'라는 3단계 엘리트 코스를 전부 밟고 왕이 된 유일한 유저입니다. 적통성 가챠에서 SSS를 뽑은 거예요."
+    }
+}

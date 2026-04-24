@@ -1,0 +1,31 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_30",
+        "time_range": "00:00 - 00:10",
+        "components": [
+            {
+                "type": "SystemLog",
+                "props": {
+                    "message": "[1455] 관리자 권한 강제 이전: 단종 → 세조."
+                }
+            },
+            {
+                "type": "SystemLog",
+                "props": {
+                    "message": "[1456] '단종' 계정 강등 → '노산군'. 영월 바이옴으로 격리 수용."
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "",
+            "sfx": [
+                "서버 다운 효과음"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "PATTERN_INTERRUPT"
+        ],
+        "narration_text": "그리고 최종 처분. '단종'이라는 이름마저 삭제당하고 대군에서 '노산군'으로 강등. 강원도 영월이라는 감옥 바이옴으로 유배됩니다."
+    }
+}

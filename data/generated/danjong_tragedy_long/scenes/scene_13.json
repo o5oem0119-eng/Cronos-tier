@@ -1,0 +1,26 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_13",
+        "time_range": "00:00:00-00:00:05",
+        "components": [
+            {
+                "type": "SystemLog",
+                "props": {
+                    "message": "붉은 경고등으로 전환됨",
+                    "severity": "high"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "none",
+            "sfx": [
+                "경고 사이렌"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "PATTERN_INTERRUPT"
+        ],
+        "narration_text": "여기까지만 보면, 사기 빌드죠. 근데 이 게임에서 스탯이 높은 게 항상 좋은 건 아닙니다. 만렙 장비를 두른 레벨 12가 PVP 존에 혼자 던져진 겁니다. 장비는 전설급인데 레벨이 12? 이건 아이템 사냥꾼들의 먹잇감이에요."
+    }
+}

@@ -1,40 +1,105 @@
-{
-  "project": "Chronos Tier - Danjong Incident",
-  "characters": [
-    {
-      "id": "danjong",
-      "name": "이홍위 (단종)",
-      "tier": "SSS",
-      "class": "Glass Cannon",
-      "stats": {
-        "legitimacy": 100,
-        "charisma": 95,
-        "intelligence": 90,
-        "power": 5,
-        "luck": 0
-      },
-      "status": ["Isolated", "Guardian_Glitch"],
-      "passive": "SSS-Rank Legitimacy (Passive Obedience of Subjects)"
+[
+  {
+    "character_name": "단종 (이홍위)",
+    "role": "Original Server Admin (Target)",
+    "core_stats": {
+      "legitimacy": 100,
+      "political_power": 10,
+      "military_power": 0,
+      "intelligence": 80,
+      "mobility": 10,
+      "defense": 0,
+      "support": 30,
+      "resource_control": 40,
+      "survivability": 5
     },
-    {
-      "id": "suyang",
-      "name": "이유 (수양대군)",
-      "tier": "A+",
-      "class": "Bruiser / Meta Breaker",
-      "stats": {
-        "legitimacy": 20,
-        "charisma": 85,
-        "intelligence": 92,
-        "power": 100,
-        "luck": 88
-      },
-      "status": ["Reconstruction_Mindset", "Power_Creep"],
-      "tactics": "Direct Kill, System Hijack"
-    }
-  ],
-  "server_rules": {
-    "regime": "Joseon Dynasty",
-    "meta": "Legitimacy-centric (적통성 중심)",
-    "protection_mechanism": "Regency (수렴청정)"
+    "special_abilities": [
+      "절대적 명분 (서버 내 모든 유저에게 복종 패시브 강제 부여)",
+      "동정심 유발 (상대방의 명분을 깎아먹는 디버프 발생)"
+    ],
+    "passive_traits": [
+      "적장자의 적장자 (Unbreakable Lineage)",
+      "문종의 유전자 (High Base INT & CHA)"
+    ],
+    "hard_counters": [
+      "수양대군 (물리적 타격 및 룰 무시 브루저)"
+    ],
+    "favorable_matchups": [],
+    "weaknesses": [
+      "수렴청정 가디언 부재 (방어막 0)",
+      "물리적 무력 전무 (글래스 캐논)"
+    ],
+    "tier": "F (생존 불가)",
+    "meta_fit": "Low (명분보다 무력이 중시되는 변칙 메타로 강제 전환됨)",
+    "final_verdict": "조선 서버가 설계한 가장 완벽한 혈통(소프트웨어)이었으나, 이를 지탱할 물리적 힘과 가디언(하드웨어)이 전무하여 파워 인플레 메타에서 17세에 강제 로그아웃 당한 비운의 마스터피스."
+  },
+  {
+    "character_name": "금성대군 (이유)",
+    "role": "The Last Guardian / Resister",
+    "core_stats": {
+      "legitimacy": 85,
+      "political_power": 40,
+      "military_power": 75,
+      "intelligence": 85,
+      "mobility": 60,
+      "defense": 50,
+      "support": 90,
+      "resource_control": 50,
+      "survivability": 15
+    },
+    "special_abilities": [
+      "순흥 복위 본기 (지방 무장 세력 소집)",
+      "명분 호소 (선비들의 충성도 100% 고정)"
+    ],
+    "passive_traits": [
+      "성균관 엘리트 (원칙 중심적 행동)",
+      "세종의 신뢰 (단종에 대한 보호 본능)"
+    ],
+    "hard_counters": [
+      "밀고자 (이동 등 고변 클래스에 의한 전략 노출)"
+    ],
+    "favorable_matchups": [
+      "지방 사족들 (명분 기반 지지 확보)"
+    ],
+    "weaknesses": [
+      "유배지 격리 상태 (통신 및 이동 제한)",
+      "형제간의 정과 도리 사이의 갈등"
+    ],
+    "tier": "A (비극적 영웅)",
+    "meta_fit": "Medium-High (명분을 중시하는 정통 유저들에게는 신화적 존재)",
+    "final_verdict": "권력의 메타를 따라간 형제들과 달리, 끝까지 아버지 세종의 뜻을 받들어 조카 단종을 지키려 했던 조선 서버 최고의 원칙주의자. 불가능한 복구 퀘스트를 시도하다 장렬히 로그아웃함."
+  },
+  {
+    "character_name": "한명회",
+    "role": "Tactician / System Designer",
+    "core_stats": {
+      "legitimacy": 5,
+      "political_power": 95,
+      "military_power": 30,
+      "intelligence": 98,
+      "mobility": 80,
+      "defense": 70,
+      "support": 90,
+      "resource_control": 95,
+      "survivability": 100
+    },
+    "special_abilities": [
+      "살생부 알고리즘 (정적 타겟팅 및 자동 제거)",
+      "그림자 매복 (상대방의 동선 예측 및 함정 설치)"
+    ],
+    "passive_traits": [
+      "4대 왕을 거친 생존력 (Meta Adapter)",
+      "세조의 두뇌 (Shadow Admin)"
+    ],
+    "hard_counters": [],
+    "favorable_matchups": [
+      "모든 원칙주의자 유저 (데이터와 실리를 이용한 무력화)"
+    ],
+    "weaknesses": [
+      "부족한 정통성 (영구적인 간신/찬탈자 태그)"
+    ],
+    "tier": "S (최강의 서포터)",
+    "meta_fit": "Perfect (어떤 메타에서도 살아남는 압도적인 적응력)",
+    "final_verdict": "역사의 전면보다는 그림자 속에서 시스템을 설계하고 정적을 타겟팅한 인물. 영화 '왕과 사는 남자'에서도 단종을 잡기 위해 함정을 판 실질적인 서버 해킹의 주역."
   }
-}
+]

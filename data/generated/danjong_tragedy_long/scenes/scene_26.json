@@ -1,0 +1,27 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_26",
+        "time_range": "00:06:00",
+        "components": [
+            {
+                "type": "SystemLog",
+                "props": {
+                    "message": "계유정난 — 이벤트 개시",
+                    "severity": "high"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "",
+            "sfx": [
+                "금속 충돌음",
+                "경고음 극대화"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "PATTERN_INTERRUPT"
+        ],
+        "narration_text": ""
+    }
+}

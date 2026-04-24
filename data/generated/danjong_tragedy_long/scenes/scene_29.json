@@ -1,0 +1,42 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_29",
+        "time_range": "00:01:00-00:01:30",
+        "components": [
+            {
+                "type": "HPBar",
+                "props": {
+                    "character": "danjong",
+                    "metric": "왕권 HP",
+                    "from": 100,
+                    "to": 5,
+                    "duration_sec": 10,
+                    "threshold_warning": 30,
+                    "sfx": [
+                        "hp_bar_decline"
+                    ]
+                }
+            },
+            {
+                "type": "DebuffPanel",
+                "props": {
+                    "character": "danjong",
+                    "debuffs": [
+                        "로그인 제한"
+                    ]
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "tense_background",
+            "sfx": [
+                "hp_bar_decline"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "MICRO_PAUSE"
+        ],
+        "narration_text": "단종은 이제 이름만 어드민이에요. 모든 실질적 권한은 수양대군에게 넘어갔습니다. 2년 뒤, 왕위마저 선위 당합니다."
+    }
+}

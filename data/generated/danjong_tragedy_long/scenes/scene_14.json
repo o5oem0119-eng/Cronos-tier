@@ -1,0 +1,27 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_14",
+        "time_range": "03:00 - 03:10",
+        "components": [
+            {
+                "type": "SystemLog",
+                "props": {
+                    "message": "⚠ SYSTEM ALERT: Guardian Slot — EMPTY",
+                    "animation": "FLASH",
+                    "severity": "high"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "",
+            "sfx": [
+                "게임 시스템 에러음"
+            ]
+        },
+        "visual_effects": [
+            "PATTERN_INTERRUPT",
+            "FLASH"
+        ],
+        "narration_text": ""
+    }
+}

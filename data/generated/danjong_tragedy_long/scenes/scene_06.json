@@ -1,0 +1,24 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_06",
+        "time_range": "00:30-00:40",
+        "components": [
+            {
+                "type": "PatchNote",
+                "props": {
+                    "title": "조선 서버의 밸런스 붕괴 보고서",
+                    "changes": "Meta shift observed at server"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "긴장감 있는 가야금 비트 시작",
+            "sfx": []
+        },
+        "visual_effects": [
+            "FLASH",
+            "PATTERN_INTERRUPT"
+        ],
+        "narration_text": ""
+    }
+}

@@ -1,0 +1,43 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_43",
+        "time_range": "00:00-00:10",
+        "components": [
+            {
+                "type": "RankingBoard",
+                "props": {
+                    "ranking_title": "최종 종합 티어",
+                    "entries": [
+                        {
+                            "character": "이홍위 (단종)",
+                            "tier": "A-Tier",
+                            "note": "시스템이 보호하지 못한 마스터피스"
+                        }
+                    ],
+                    "highlight_top": true,
+                    "animation": "slide-in"
+                }
+            },
+            {
+                "type": "DebuffPanel",
+                "props": {
+                    "character": "이홍위 (단종)",
+                    "debuffs": [
+                        "Guardian_Glitch"
+                    ]
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "dramatic_theme",
+            "sfx": [
+                "slot_in_effect"
+            ]
+        },
+        "visual_effects": [
+            "ZOOM",
+            "FLASH"
+        ],
+        "narration_text": "종합 티어, A. 스탯만으로는 역대 최고의 빌드였지만, 이 서버의 메타는 스탯이 아니라 주먹이 지배했습니다. 완벽한 캐릭터를 만들어놓고 보호 시스템을 안 만든 운영진의 설계 미스. 그게 이 비극의 본질이에요."
+    }
+}

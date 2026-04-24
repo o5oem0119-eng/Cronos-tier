@@ -1,0 +1,29 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_01",
+        "time_range": "0s-1s",
+        "components": [
+            {
+                "type": "HPBar",
+                "props": {
+                    "character": "danjong",
+                    "metric": "HP",
+                    "from": 100,
+                    "to": 0,
+                    "duration_sec": 0.5,
+                    "sfx": "hp_drop"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "dramatic_theme",
+            "sfx": [
+                "hp_drop"
+            ]
+        },
+        "visual_effects": [
+            "FLASH"
+        ],
+        "narration_text": "적통성 120. 조선 서버 500년 역사상 가장 완벽한 혈통 수치를 가진 캐릭터가 있었습니다."
+    }
+}

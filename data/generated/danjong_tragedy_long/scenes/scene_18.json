@@ -1,0 +1,28 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_18",
+        "time_range": "00:32-00:40",
+        "components": [
+            {
+                "type": "SystemLog",
+                "props": {
+                    "message": "가디언 NPC '문종' — 재위 2년 만에 강제 퇴장. 가디언 슬롯: 0/3.",
+                    "severity": "CRITICAL",
+                    "animation": "POPUP"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "Suspenseful",
+            "sfx": [
+                "심장 박동 소리",
+                "경고음 중첩"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "ZOOM"
+        ],
+        "narration_text": "그리고 결정타. 유일한 방패였던 부친 문종마저 재위 2년 만에 서버에서 사라집니다. 가디언 슬롯 3칸 전부 공석. 이건 시스템 에러가 아니라 서비스 사고입니다."
+    }
+}

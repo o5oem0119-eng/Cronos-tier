@@ -1,0 +1,30 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_22",
+        "time_range": "00:00-00:10",
+        "components": [
+            {
+                "type": "StatCard",
+                "props": {
+                    "character": "이유 (수양대군)",
+                    "stats": {
+                        "STR": 95,
+                        "INT": 90,
+                        "LUK": 80,
+                        "CHA": 110
+                    },
+                    "class": "Meta-Breaker Bruiser (패왕 빌드)",
+                    "animation": "ZOOM_IN"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "무거운 드럼 비트",
+            "sfx": []
+        },
+        "visual_effects": [
+            "ZOOM"
+        ],
+        "narration_text": "수양대군. 세종의 차남이나 형 문종한테 밀려서 계승 서열에서 탈락한 인물인데, 이 유저는 밀려난 걸 받아들이는 타입이 아니었습니다."
+    }
+}

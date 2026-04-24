@@ -1,0 +1,30 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_45",
+        "time_range": "00:00-00:10",
+        "components": [
+            {
+                "type": "IntroCard",
+                "props": {
+                    "character": "Silhouette",
+                    "class": "Unknown",
+                    "role": "Mystery",
+                    "tier": "???",
+                    "animation": "FadeIn"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "suspenseful_theme",
+            "sfx": [
+                "Silhouette_Appear",
+                "Question_Mark_Sound"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "ZOOM"
+        ],
+        "narration_text": "다음엔 또 어떤 억울하게 밴 당한 캐릭터가 기다리고 있을까요? 기대하세요. 그리고 언제나 그렇듯—"
+    }
+}

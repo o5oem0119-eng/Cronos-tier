@@ -155,6 +155,11 @@
 | **Generated Stats** | `data/stats/{episode_id}_stats.json` | 실제 캐릭터 스탯 데이터 |
 | **Cinematic Intro Card Reference** | `reference/remotion_ui_references/cinematic_intro_card.md` | 인물 등장 카드 레이아웃 참고 |
 | **Ranking Board Reference** | `reference/remotion_ui_references/ranking_board_2d.md` | 순위/티어 비교용 2D 랭킹 보드 연출 참고 |
+| StatCard Reference | reference/remotion_ui_references/stat_card_2d.md |
+| SystemLog Reference | reference/remotion_ui_references/system_log_2d.md |
+| HPBar Reference | reference/remotion_ui_references/hp_bar_2d.md |
+| StatCompare Reference | reference/remotion_ui_references/stat_compare_2d.md |
+| PatchNote Reference | reference/remotion_ui_references/patch_note_2d.md |
 
 ## Opening Scene Template Mapping
 

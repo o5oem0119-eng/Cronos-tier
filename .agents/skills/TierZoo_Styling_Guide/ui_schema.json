@@ -1,0 +1,124 @@
+{
+    "components": {
+        "IntroCard": {
+            "required": [
+                "character",
+                "class",
+                "role",
+                "tier"
+            ],
+            "optional": [
+                "server",
+                "stats",
+                "passive",
+                "debuff",
+                "animation",
+                "style"
+            ]
+        },
+        "StatCard": {
+            "required": [
+                "character",
+                "stats"
+            ],
+            "optional": [
+                "tier",
+                "highlight",
+                "warning",
+                "passive_traits",
+                "special_abilities",
+                "hard_counters",
+                "animation"
+            ]
+        },
+        "StatCompare": {
+            "required": [
+                "left_character",
+                "right_character",
+                "stats"
+            ],
+            "optional": [
+                "highlight_winner",
+                "animation"
+            ]
+        },
+        "SystemLog": {
+            "required": [
+                "message"
+            ],
+            "optional": [
+                "delay_sec",
+                "animation",
+                "severity"
+            ]
+        },
+        "HPBar": {
+            "required": [
+                "character",
+                "metric",
+                "from",
+                "to"
+            ],
+            "optional": [
+                "duration_sec",
+                "threshold_warning",
+                "sfx"
+            ]
+        },
+        "PatchNote": {
+            "required": [
+                "title",
+                "changes"
+            ],
+            "optional": [
+                "version",
+                "server",
+                "animation"
+            ]
+        },
+        "RankingBoard": {
+            "required": [
+                "ranking_title",
+                "entries"
+            ],
+            "optional": [
+                "highlight_top",
+                "animation"
+            ]
+        },
+        "ServerRulePanel": {
+            "required": [
+                "server",
+                "rules"
+            ],
+            "optional": [
+                "version",
+                "animation"
+            ]
+        },
+        "MatchupBoard": {
+            "required": [
+                "character_a",
+                "character_b",
+                "comparison_axes",
+                "result"
+            ],
+            "optional": [
+                "dominant_side",
+                "animation"
+            ]
+        },
+        "PassivePanel": {
+            "required": [
+                "character",
+                "passives"
+            ]
+        },
+        "DebuffPanel": {
+            "required": [
+                "character",
+                "debuffs"
+            ]
+        }
+    }
+}

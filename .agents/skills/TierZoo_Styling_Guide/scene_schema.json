@@ -1,0 +1,25 @@
+{
+    "scene_structure": {
+        "scene_id": "string",
+        "time_range": "string",
+        "components": [
+            {
+                "type": "string",
+                "props": "object"
+            }
+        ],
+        "audio": {
+            "music_cue": "string",
+            "sfx": [
+                "string"
+            ]
+        },
+        "visual_effects": [
+            "FLASH",
+            "ZOOM",
+            "PATTERN_INTERRUPT",
+            "MICRO_PAUSE"
+        ],
+        "narration_text": "string"
+    }
+}

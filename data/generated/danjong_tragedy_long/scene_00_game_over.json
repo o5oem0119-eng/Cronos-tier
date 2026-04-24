@@ -1,0 +1,25 @@
+{
+    "scene_structure": {
+        "scene_id": "scene_00_game_over",
+        "time_range": "0:00-0:15",
+        "components": [
+            {
+                "type": "SystemLog",
+                "props": {
+                    "message": "Player: Danjong\nStatus: Poisoned\nAuthority: Revoked\nBody Recovery: Forbidden\nPenalty: Three-generation wipe",
+                    "severity": "critical"
+                }
+            }
+        ],
+        "audio": {
+            "music_cue": "dark_ambient",
+            "sfx": [
+                "warning_beep"
+            ]
+        },
+        "visual_effects": [
+            "FLASH"
+        ],
+        "narration_text": "17살의 왕은 사약을 받았습니다. 시신은 강물에 버려졌고, 그 시신을 거두는 자는 삼대가 멸한다는 명령이 내려졌습니다. 이건 전쟁도 아니고, 암살 미션도 아니고, 보스전도 아니었습니다. 조선 서버가 자기 최고 정통성 캐릭터를 삭제한 사건이었습니다."
+    }
+}

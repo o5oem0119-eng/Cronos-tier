@@ -43,148 +43,187 @@
 
 # ⚙ Chronos Execution Pipeline
 
-이 문서는 Chronos Engine의 실제 실행 순서를 정의한다.
-
-모든 에이전트는 아래 순서를 따른다.
+이 문서는 Chronos Engine의 실제 실행 순서를 정의한다. Code(스크립트/자동화)와 LLM(에이전트)의 역할을 명확히 분리하여 8단계로 작동한다.
 
 ---
 
 ## Stage 0 — Source Intake
 
-INPUT
+**입력:**
+- `data/source/*.md`
 
-data/source/*
-knowledge/reference/*
+**Code 역할:**
+- 파일 병합 및 정리
+- `source_master.md` 생성
 
-OUTPUT
+**LLM 역할 (Advanced):**
+- 핵심 인물 추출
+- 사건 timeline 정리
+- 팩션 구조 추출
+- 관계 그래프 텍스트 생성
 
-data/source/{episode_id}_source.md
-log.md 업데이트
+**출력:**
+- `data/source/{episode_id}_source.md`
 
 ---
 
 ## Stage 1 — Historical Game Analysis
 
-AGENT
+**담당:** `.agents/History_Strategist.md`
 
-_agents/History_Strategist.md
+**입력:**
+- `{episode_id}_source.md`
 
-INPUT
+**LLM 역할 (Advanced):**
+- 역사 자료 → 게임 스탯 / 상성 / 티어 분석
 
-data/source/{episode_id}_source.md
+**Code 역할:**
+- `stat_schema.json` 검증
+- 파일 저장
 
-OUTPUT
-
-data/stats/{episode_id}_stats.json
-data/generated/{episode_id}/optimized_analysis.md
+**출력:**
+- `data/stats/{episode_id}_stats.json`
+- `data/generated/{episode_id}/optimized_analysis.md`
 
 ---
 
 ## Stage 2 — Longform Script Writing
 
-AGENT
+**담당:** `.agents/TierZoo_Writer.md`
 
-_agents/TierZoo_Writer.md
+**입력:**
+- `optimized_analysis.md`
+- `stats.json`
+- `template/pening_game_over_structure.md` (조건부 비극 에피소드용)
 
-INPUT
+**LLM 역할 (Advanced):**
+- TierZoo 스타일 롱폼 대본 작성 (AV Script 포맷, VIDEO/AUDIO 분리, visual tags 포함)
 
-optimized_analysis.md
-stats.json
-wiki/Index.md
+**Code 역할:**
+- 파일 저장 및 버전 관리
 
-OUTPUT
-
-data/generated/{episode_id}/script_v1.md
+**출력:**
+- `script_v1.md`
 
 ---
 
 ## Stage 3 — Script Review
 
-AGENT
+**담당:** `.agents/TierZoo_Writer.md` + review checklist
 
-_agents/TierZoo_Writer.md
+**LLM 역할 (Advanced):**
+- 검수: 리텐션 구조, open loop, pattern interrupt, tone violation, historical distortion risk, tragic respect level, visualization feasibility
 
-INPUT
+**Code 역할:**
+- `review_report.json` 저장 및 통과 여부 기록
 
-script_v1.md
-script-review-checklist.md
-
-OUTPUT
-
-script_v2.md
+**출력:**
+- `script_v2.md`
+- `review_report.json`
 
 ---
 
-## Stage 4 — Visual Planning
+## Stage 4 — Visual Planning (FIRST API CONNECTION)
 
-AGENT
+*여기가 핵심입니다. (실제 렌더링을 위한 데이터 변환)*
 
-_agents/Visual_Director.md
+**입력:**
+- `script_v2.md`
+- `.agents/skills/TierZoo_Styling_Guide/visual_tag_map.md`
+- `.agents/skills/TierZoo_Styling_Guide/scene_schema.json`
+- `.agents/skills/TierZoo_Styling_Guide/ui_schema.json`
+- `stats.json`
 
-INPUT
+**LLM 역할 (Fast):**
+- `[INTRO CARD]` → IntroCard component JSON 변환
+- `[SYSTEM LOG]` → SystemLog JSON 변환 등
 
-script_v2.md
-stats.json
+**Code 역할:**
+- `scene_schema.json` 및 `ui_schema.json` validation
+- 실패 시 auto-repair 요청
 
-OUTPUT
-
-scene_plan.md
-image_prompts.md
-scene_*.json
+**출력:**
+- `scene_00.json`, `scene_01.json`, `scene_02.json` ...
+- `image_prompts.md`
+- `scene_plan.md`
 
 ---
 
 ## Stage 5 — Asset Generation
 
-TOOL
+**입력:**
+- `image_prompts.md`
 
-TubeFlow / Google Labs Flow
+**Code 역할:**
+- TubeFlow / Playwright batch / Google Flow 실행
 
-INPUT
+**LLM 역할 (Fast):**
+- 프롬프트 실패 수정, 누락 이미지 재생성 (에러 대응)
 
-image_prompts.md
-
-OUTPUT
-
-assets/generated/{episode_id}/images/*
+**출력:**
+- `assets/generated/{episode_id}/images/*`
 
 ---
 
 ## Stage 6 — Remotion Assembly
 
-TOOL
+**입력:**
+- `scene_*.json`
+- `assets/images/*`
+- `remotion/components/*.tsx`
+- `remotion/components/SceneRenderer.tsx`
 
-Claude Code + Remotion
+**Code 역할:**
+- `npx remotion render` 실행
 
-INPUT
+**LLM 역할 (Fast):**
+- 렌더 오류 로그 해석 (component missing, stat mismatch, invalid props, scene duration conflict 등) 및 수정 방향 제안
 
-scene_*.json
-assets/images/*
-
-OUTPUT
-
-render/{episode_id}/preview.mp4
-render/{episode_id}/final.mp4
+**출력:**
+- `preview.mp4`
+- `final.mp4`
 
 ---
 
-## Stage 7 — Knowledge Feedback Loop
+## Stage 7 — Knowledge Feedback
 
-INPUT
+**입력:**
+- `final.mp4`
+- `script_v2.md`
+- `scene_plan.md`
 
-script_v2.md
-scene_plan.md
-final.mp4
+**LLM 역할 (Fast):**
+- 성공한 hook, 효과적인 UI 패턴, 좋은 visual timing, 강한 retention 구조 추출
 
-OUTPUT
+**Code 역할:**
+- 파일 저장, `log.md` 업데이트
 
-wiki/script-patterns/{episode_id}.md
-wiki/visual-patterns/{episode_id}.md
-wiki/production-lessons/{episode_id}.md
-log.md 업데이트
+**출력:**
+- `wiki/script-patterns/{episode_id}.md`
+- `wiki/visual-patterns/{episode_id}.md`
 
-## Episode Entry Point
+---
 
-새 에피소드는 반드시 다음 템플릿으로 시작한다.
+## 실제 엔진 구조 (최종 형태) & API 연결 위치
 
-templates/episode_template.md
+순서:
+1️⃣ Stage 4 Visual Planning
+2️⃣ Stage 3 Script Review
+3️⃣ Stage 1 Historical Analysis
+4️⃣ Stage 2 Script Writing
+5️⃣ Stage 7 Feedback
+
+**Chronos 실행 흐름:**
+`source.md` → **History_Strategist (LLM)** → `stats.json` → **TierZoo_Writer (LLM)** → `script_v1.md` → **Script Review (LLM)** → `script_v2.md` → **Visual Director (LLM)** → `scene_*.json` → **Asset Generator (Code)** → `images` → **SceneRenderer (Code)** → `final.mp4` → **Feedback Extractor (LLM)** → wiki patterns 저장
+
+---
+
+## MVP 완성 기준 체크리스트
+
+이게 되면 Chronos MVP 완성입니다:
+- [ ] `source.md` 넣기
+- [ ] `stats.json` 자동 생성
+- [ ] `script.md` 자동 생성
+- [ ] `scene.json` 자동 생성
+- [ ] `remotion render` 실행
+- [ ] `mp4` 출력

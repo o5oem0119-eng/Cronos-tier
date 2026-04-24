@@ -155,3 +155,17 @@
 | **Generated Stats** | `data/stats/{episode_id}_stats.json` | 실제 캐릭터 스탯 데이터 |
 | **Cinematic Intro Card Reference** | `reference/remotion_ui_references/cinematic_intro_card.md` | 인물 등장 카드 레이아웃 참고 |
 | **Ranking Board Reference** | `reference/remotion_ui_references/ranking_board_2d.md` | 순위/티어 비교용 2D 랭킹 보드 연출 참고 |
+
+## Opening Scene Template Mapping
+
+If script contains:
+
+[SYSTEM LOG]
+GAME OVER
+tragic episode opening structure
+
+then generate:
+
+scene_00_game_over.json
+scene_01_server_rules.json
+scene_02_character_intro_cards.json

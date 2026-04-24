@@ -99,3 +99,54 @@
 | **Matchup Logic Engine** | `skills/TierZoo_Styling_Guide/matchup_logic.md` | PvP 상성 분석 구조 |
 | **Tier Assignment Engine** | `skills/TierZoo_Styling_Guide/tier_assignment_rules.md` | 최종 티어 판정 기준 |
 | **Stat Schema Engine** | `skills/TierZoo_Styling_Guide/stat_schema.json` | 캐릭터 능력치 생성 구조 |
+
+## Opening Template Selection Rules
+
+episode_type 판단 기준
+
+if episode contains:
+
+execution
+poisoning
+assassination
+deposition
+exile
+guardian collapse
+minor ruler
+political purge
+
+then:
+
+use
+
+templates/opening_templates/tragic_episode_opening.md
+
+instead of default Stage 1 Hook structure
+
+## Episode Type Detection
+
+episode_type classification rules:
+
+tragic_episode
+
+examples:
+
+단종
+사도세자
+광해군
+명성황후
+
+trigger keywords:
+
+execution
+poison
+assassination
+exile
+deposition
+guardian collapse
+
+behavior:
+
+replace default opening with
+
+templates/opening_templates/tragic_episode_opening.md

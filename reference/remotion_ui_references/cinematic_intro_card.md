@@ -145,3 +145,32 @@ Do not use:
 <TechRings />
 <MatrixRain />
 <ThreeScene />
+
+
+## Layered Motion Support
+
+Chronos IntroCard supports layered flat animation.
+
+Allowed structure:
+
+background layer
+midground symbolic layer
+character cutout layer
+title text layer
+tier badge layer
+
+Animation rules:
+
+background remains static or slow fade
+
+character cutout may slide or scale
+
+symbolic objects may appear sequentially
+
+title text pops in
+
+tier badge snaps into position
+
+No parallax depth simulation allowed
+No perspective camera movement allowed
+No 3D motion allowed

@@ -52,15 +52,12 @@
 **입력:**
 - `data/source/*.md`
 
-**Code 역할:**
-- 파일 병합 및 정리
-- `source_master.md` 생성
+**LLM 역할:**
+- ❌ **사용 안함** (순수 Code 처리)
 
-**LLM 역할 (Advanced):**
-- 핵심 인물 추출
-- 사건 timeline 정리
-- 팩션 구조 추출
-- 관계 그래프 텍스트 생성
+**Code 역할:**
+- 파일 병합 및 텍스트 파싱
+- `source_master.md` 생성
 
 **출력:**
 - `data/source/{episode_id}_source.md`
@@ -69,12 +66,10 @@
 
 ## Stage 1 — Historical Game Analysis
 
-**담당:** `.agents/History_Strategist.md`
-
 **입력:**
 - `{episode_id}_source.md`
 
-**LLM 역할 (Advanced):**
+**LLM 역할 (`gpt-5.3-mini`):**
 - 역사 자료 → 게임 스탯 / 상성 / 티어 분석
 
 **Code 역할:**
@@ -89,63 +84,59 @@
 
 ## Stage 2 — Longform Script Writing
 
-**담당:** `.agents/TierZoo_Writer.md`
-
 **입력:**
 - `optimized_analysis.md`
 - `stats.json`
 - `template/pening_game_over_structure.md` (조건부 비극 에피소드용)
 
-**LLM 역할 (Advanced):**
+**LLM 역할 (`gpt-5.3`):**
 - TierZoo 스타일 롱폼 대본 작성 (AV Script 포맷, VIDEO/AUDIO 분리, visual tags 포함)
+- 단 1회 호출로 최종 완성본 도출
 
 **Code 역할:**
 - 파일 저장 및 버전 관리
 
 **출력:**
-- `script_v1.md`
+- `script.md` (v1/v2 분리 없이 단일 파일)
 
 ---
 
 ## Stage 3 — Script Review
 
-**담당:** `.agents/TierZoo_Writer.md` + review checklist
+**입력:**
+- `script.md`
 
-**LLM 역할 (Advanced):**
-- 검수: 리텐션 구조, open loop, pattern interrupt, tone violation, historical distortion risk, tragic respect level, visualization feasibility
+**LLM 역할:**
+- ❌ **사용 안함** (순수 Code 처리)
 
 **Code 역할:**
-- `review_report.json` 저장 및 통과 여부 기록
+- 정규식 및 패턴 매칭을 통한 기계적 검수 (마크다운 표 구조, 단어 수, 필수 훅 존재 여부 등)
+- 통과 여부를 담은 채점표 자동 생성
 
 **출력:**
-- `script_v2.md`
 - `review_report.json`
 
 ---
 
 ## Stage 4 — Visual Planning (FIRST API CONNECTION)
 
-*여기가 핵심입니다. (실제 렌더링을 위한 데이터 변환)*
-
 **입력:**
-- `script_v2.md`
+- `script.md`
 - `.agents/skills/TierZoo_Styling_Guide/visual_tag_map.md`
 - `.agents/skills/TierZoo_Styling_Guide/scene_schema.json`
 - `.agents/skills/TierZoo_Styling_Guide/ui_schema.json`
 - `stats.json`
 
-**LLM 역할 (Fast):**
-- `[INTRO CARD]` → IntroCard component JSON 변환
-- `[SYSTEM LOG]` → SystemLog JSON 변환 등
+**LLM 역할 (`gpt-5.3-mini`):**
+- 대본을 Remotion용 JSON 스키마로 변환
+- 이미지 생성 프롬프트 추출
 
 **Code 역할:**
-- `scene_schema.json` 및 `ui_schema.json` validation
-- 실패 시 auto-repair 요청
+- 씬별 파일 파편화 방지 -> 단일 `scenario.json`으로 병합
 
 **출력:**
-- `scene_00.json`, `scene_01.json`, `scene_02.json` ...
+- `scenario.json` (scene_00, 01 파편화 방지)
 - `image_prompts.md`
-- `scene_plan.md`
 
 ---
 
@@ -154,11 +145,11 @@
 **입력:**
 - `image_prompts.md`
 
-**Code 역할:**
-- TubeFlow / Playwright batch / Google Flow 실행
+**LLM 역할:**
+- ❌ **사용 안함** (순수 Code 처리)
 
-**LLM 역할 (Fast):**
-- 프롬프트 실패 수정, 누락 이미지 재생성 (에러 대응)
+**Code 역할:**
+- TubeFlow / Playwright batch / Google Flow 자동 실행 및 이미지 다운로드
 
 **출력:**
 - `assets/generated/{episode_id}/images/*`
@@ -168,16 +159,16 @@
 ## Stage 6 — Remotion Assembly
 
 **입력:**
-- `scene_*.json`
+- `scenario.json`
 - `assets/images/*`
 - `remotion/components/*.tsx`
 - `remotion/components/SceneRenderer.tsx`
 
-**Code 역할:**
-- `npx remotion render` 실행
+**LLM 역할:**
+- ❌ **사용 안함** (순수 Code 처리)
 
-**LLM 역할 (Fast):**
-- 렌더 오류 로그 해석 (component missing, stat mismatch, invalid props, scene duration conflict 등) 및 수정 방향 제안
+**Code 역할:**
+- `npx remotion render` 자동 실행
 
 **출력:**
 - `preview.mp4`
@@ -189,32 +180,23 @@
 
 **입력:**
 - `final.mp4`
-- `script_v2.md`
-- `scene_plan.md`
+- `script.md`
 
-**LLM 역할 (Fast):**
-- 성공한 hook, 효과적인 UI 패턴, 좋은 visual timing, 강한 retention 구조 추출
+**LLM 역할:**
+- ❌ **사용 안함** (순수 Code 처리)
 
 **Code 역할:**
-- 파일 저장, `log.md` 업데이트
+- 파일 및 데이터 로그를 Wiki에 이동 저장
 
 **출력:**
-- `wiki/script-patterns/{episode_id}.md`
-- `wiki/visual-patterns/{episode_id}.md`
+- `knowledge_base/script-patterns/{episode_id}.md`
 
 ---
 
 ## 실제 엔진 구조 (최종 형태) & API 연결 위치
 
-순서:
-1️⃣ Stage 4 Visual Planning
-2️⃣ Stage 3 Script Review
-3️⃣ Stage 1 Historical Analysis
-4️⃣ Stage 2 Script Writing
-5️⃣ Stage 7 Feedback
-
-**Chronos 실행 흐름:**
-`source.md` → **History_Strategist (LLM)** → `stats.json` → **TierZoo_Writer (LLM)** → `script_v1.md` → **Script Review (LLM)** → `script_v2.md` → **Visual Director (LLM)** → `scene_*.json` → **Asset Generator (Code)** → `images` → **SceneRenderer (Code)** → `final.mp4` → **Feedback Extractor (LLM)** → wiki patterns 저장
+**크레딧 방어 최적화 흐름:**
+`source.md` → **Code** → `stats.json` (gpt-5.3-mini) → **TierZoo_Writer (gpt-5.3)** → `script.md` → **Code Check** → `review_report.json` → **Visual Director (gpt-5.3-mini)** → `scenario.json` & `prompts.md` → **Code Batch** → `images` → **Code Render** → `final.mp4` → **Code Backup**
 
 ---
 
@@ -222,8 +204,9 @@
 
 이게 되면 Chronos MVP 완성입니다:
 - [ ] `source.md` 넣기
-- [ ] `stats.json` 자동 생성
-- [ ] `script.md` 자동 생성
-- [ ] `scene.json` 자동 생성
-- [ ] `remotion render` 실행
+- [ ] `stats.json` 자동 생성 (gpt-5.3-mini)
+- [ ] `script.md` 단일 자동 생성 (gpt-5.3)
+- [ ] `review_report.json` 코드 기반 자동 생성 (LLM ❌)
+- [ ] `scenario.json` 단일 파일 생성 (gpt-5.3-mini)
+- [ ] `remotion render` 실행 (LLM ❌)
 - [ ] `mp4` 출력

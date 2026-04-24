@@ -38,3 +38,153 @@
 - **Supreme Authority:** 이 파일(`orchestration.md`)의 지침은 모든 작업의 최우선 순위임.
 - **Persona:** 모든 에이전트는 '안티그래비티'의 페르소나를 유지하며, 한국어로 답변함.
 - **Output Format:** [결론/해결책] -> [코드/대본] -> [상세 설명] 순서의 두괄식 답변 준수.
+
+---
+
+# ⚙ Chronos Execution Pipeline
+
+이 문서는 Chronos Engine의 실제 실행 순서를 정의한다.
+
+모든 에이전트는 아래 순서를 따른다.
+
+---
+
+## Stage 0 — Source Intake
+
+INPUT
+
+data/source/*
+knowledge/reference/*
+
+OUTPUT
+
+data/source/{episode_id}_source.md
+log.md 업데이트
+
+---
+
+## Stage 1 — Historical Game Analysis
+
+AGENT
+
+_agents/History_Strategist.md
+
+INPUT
+
+data/source/{episode_id}_source.md
+
+OUTPUT
+
+data/stats/{episode_id}_stats.json
+data/generated/{episode_id}/optimized_analysis.md
+
+---
+
+## Stage 2 — Longform Script Writing
+
+AGENT
+
+_agents/TierZoo_Writer.md
+
+INPUT
+
+optimized_analysis.md
+stats.json
+wiki/Index.md
+
+OUTPUT
+
+data/generated/{episode_id}/script_v1.md
+
+---
+
+## Stage 3 — Script Review
+
+AGENT
+
+_agents/TierZoo_Writer.md
+
+INPUT
+
+script_v1.md
+script-review-checklist.md
+
+OUTPUT
+
+script_v2.md
+
+---
+
+## Stage 4 — Visual Planning
+
+AGENT
+
+_agents/Visual_Director.md
+
+INPUT
+
+script_v2.md
+stats.json
+
+OUTPUT
+
+scene_plan.md
+image_prompts.md
+scene_*.json
+
+---
+
+## Stage 5 — Asset Generation
+
+TOOL
+
+TubeFlow / Google Labs Flow
+
+INPUT
+
+image_prompts.md
+
+OUTPUT
+
+assets/generated/{episode_id}/images/*
+
+---
+
+## Stage 6 — Remotion Assembly
+
+TOOL
+
+Claude Code + Remotion
+
+INPUT
+
+scene_*.json
+assets/images/*
+
+OUTPUT
+
+render/{episode_id}/preview.mp4
+render/{episode_id}/final.mp4
+
+---
+
+## Stage 7 — Knowledge Feedback Loop
+
+INPUT
+
+script_v2.md
+scene_plan.md
+final.mp4
+
+OUTPUT
+
+wiki/script-patterns/{episode_id}.md
+wiki/visual-patterns/{episode_id}.md
+wiki/production-lessons/{episode_id}.md
+log.md 업데이트
+
+## Episode Entry Point
+
+새 에피소드는 반드시 다음 템플릿으로 시작한다.
+
+templates/episode_template.md

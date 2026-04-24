@@ -93,3 +93,9 @@
 | **TierZoo 벤치마킹** | `reference/tier zoo 분석/Tier zoo 벤치마킹 가이드.md` | 원본 대본 구조/성공요인 |
 | **TierZoo 대본 원문** | `reference/tier zoo 분석/tier zoo 대본 모음.md` | 톤/호흡/전개 참조 |
 | **역사 소스 데이터** | `data/단종_비극_게임분석.md` | 게임 분석형 역사 데이터 |
+
+| **Narrative Pipeline Engine** | `skills/TierZoo_Styling_Guide/narrative_pipeline.md` | TierZoo 서사 생성 구조 |
+| **Metaphor Dictionary Engine** | `skills/TierZoo_Styling_Guide/metaphor_dictionary.md` | 게임 메타 비유 변환 규칙 |
+| **Matchup Logic Engine** | `skills/TierZoo_Styling_Guide/matchup_logic.md` | PvP 상성 분석 구조 |
+| **Tier Assignment Engine** | `skills/TierZoo_Styling_Guide/tier_assignment_rules.md` | 최종 티어 판정 기준 |
+| **Stat Schema Engine** | `skills/TierZoo_Styling_Guide/stat_schema.json` | 캐릭터 능력치 생성 구조 |

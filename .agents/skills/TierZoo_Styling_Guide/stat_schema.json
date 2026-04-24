@@ -1,0 +1,81 @@
+{
+    "schema_name": "Chronos TierZoo Stat Schema",
+    "version": "1.0",
+    "core_stats": {
+        "legitimacy": {
+            "label": "정통성",
+            "description": "왕위, 혈통, 명분, 제도적 승인 정도",
+            "scale": "F~SSS"
+        },
+        "political_power": {
+            "label": "정치력",
+            "description": "조정 장악력, 인사권, 파벌 통제력",
+            "scale": "F~SSS"
+        },
+        "military_power": {
+            "label": "군사력",
+            "description": "병력, 무력 동원력, 친위 세력 보유 정도",
+            "scale": "F~SSS"
+        },
+        "intelligence": {
+            "label": "지능/책략",
+            "description": "판단력, 전략 설계, 권모술수 능력",
+            "scale": "F~SSS"
+        },
+        "mobility": {
+            "label": "기동성",
+            "description": "위기 대응 속도, 행동 자유도, 도주/이동 가능성",
+            "scale": "F~SSS"
+        },
+        "defense": {
+            "label": "방어력",
+            "description": "숙청, 암살, 탄핵, 정치 공격에 대한 내성",
+            "scale": "F~SSS"
+        },
+        "support": {
+            "label": "지원 세력",
+            "description": "신하, 군부, 외척, 백성, 지방 세력의 지지",
+            "scale": "F~SSS"
+        },
+        "resource_control": {
+            "label": "자원 장악력",
+            "description": "재정, 인력, 정보망, 행정 시스템 장악 정도",
+            "scale": "F~SSS"
+        },
+        "survivability": {
+            "label": "생존력",
+            "description": "권력 투쟁에서 최종적으로 살아남을 가능성",
+            "scale": "F~SSS"
+        }
+    },
+    "combat_meta_stats": {
+        "burst_damage": {
+            "label": "순간 폭발력",
+            "description": "쿠데타, 기습, 숙청처럼 단기간에 판을 뒤집는 능력"
+        },
+        "scaling": {
+            "label": "후반 성장성",
+            "description": "시간이 지날수록 강해지는 구조인지 여부"
+        },
+        "counter_vulnerability": {
+            "label": "카운터 취약성",
+            "description": "특정 인물, 제도, 명분, 세력에 의해 무력화될 위험"
+        },
+        "meta_fit": {
+            "label": "시대 메타 적합도",
+            "description": "당대 정치·사회·군사 환경에 얼마나 잘 맞는지"
+        }
+    },
+    "output_format": {
+        "character_name": "",
+        "role": "",
+        "tier": "",
+        "core_stats": {},
+        "special_abilities": [],
+        "passive_traits": [],
+        "hard_counters": [],
+        "favorable_matchups": [],
+        "weaknesses": [],
+        "final_verdict": ""
+    }
+}

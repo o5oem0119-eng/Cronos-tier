@@ -1,0 +1,15 @@
+# LLM Operating Principles (Chronos Engine)
+
+항상 Index.md 먼저 확인한다
+
+Task Routing Index 기반으로 필요한 문서만 선택한다
+
+전체 wiki를 읽지 않는다
+
+Structure → Strategy → Copywriting → Workflow 순서로 참조한다
+
+대본 생성 전 script-production-process 확인
+
+대본 생성 후 script-review-checklist 실행
+
+재사용 가능한 패턴은 wiki에 저장한다

@@ -41,6 +41,10 @@
 
 각 Stage를 독립된 JSON 씬으로 변환합니다.
 
+씬 JSON은 반드시 `data/stats/{episode_id}_stats.json`의 스탯 구조를 기준으로 작성합니다.
+
+기존 `CHA`, `INT`, `STR`, `HP`, `DEF`, `LUK` 구조는 사용하지 않습니다.
+
 ```json
 {
   "scene_id": "stage_1_hook",
@@ -49,13 +53,45 @@
     {
       "type": "StatCard",
       "character": "단종",
-      "stats": { "CHA": 120, "INT": 85, "STR": 15, "HP": 40, "DEF": 0, "LUK": 0 },
+      "role": "정통성 SSS급 왕위 계승 빌드",
+      "tier": "F",
+      "stats": {
+        "legitimacy": "SSS",
+        "political_power": "F",
+        "military_power": "F",
+        "intelligence": "C",
+        "mobility": "D",
+        "defense": "F",
+        "support": "C",
+        "resource_control": "F",
+        "survivability": "F"
+      },
+      "special_abilities": [
+        "혈통 정통성 버프",
+        "왕위 계승권 패시브"
+      ],
+      "passive_traits": [
+        "상징 권위",
+        "어린 왕 디버프"
+      ],
+      "hard_counters": [
+        "수양대군",
+        "군권 장악 세력",
+        "대신 길드"
+      ],
       "animation": "fast_zoom",
-      "highlight": ["CHA"],
-      "warning": ["STR", "DEF", "LUK"]
+      "highlight": ["legitimacy"],
+      "warning": [
+        "political_power",
+        "military_power",
+        "defense",
+        "survivability"
+      ]
     },
     {
       "type": "HPBar",
+      "character": "단종",
+      "metric": "survivability",
       "from": 100,
       "to": 0,
       "duration_sec": 0.5,
@@ -63,7 +99,7 @@
     },
     {
       "type": "SystemLog",
-      "message": "[SYSTEM] 계정 '단종' — 영구 삭제 처리.",
+      "message": "[SYSTEM] 계정 '단종' — 생존력 F 판정. 서버 퇴출 이벤트 발생.",
       "animation": "typing",
       "delay_sec": 3
     }
@@ -72,9 +108,8 @@
     "sfx": ["warning_beep", "heartbeat_stop"],
     "music_cue": "tension_gayageum"
   },
-  "narration_text": "적통성 120. 조선 서버 500년 역사상 가장 완벽한 혈통 수치를 가진 캐릭터가 있었습니다..."
+  "narration_text": "정통성은 SSS급. 하지만 정치력, 군사력, 방어력, 생존력은 전부 F. 이 빌드는 조선 서버 메타에서 살아남을 수 없는 구조였습니다."
 }
-```
 
 ## 🎨 비주얼 스타일 프리셋
 
@@ -112,3 +147,6 @@
 | **롱폼 전략** | `.agents/skills/Longform_Strategy.md` | 비주얼 태그 일람표 & 연출 장르 가이드 |
 | **스타일 프리셋** | `reference/Visual_Style_Preset.md` | 시각적 프리셋 상세 |
 | **게임 디자인** | `data/generated/danjong_tragedy/game_design.md` | 캐릭터 스탯 원본 데이터 |
+| **Stat Schema Engine** | `skills/TierZoo_Styling_Guide/stat_schema.json` | 스탯 UI 구조 기준 |
+| **Tier Assignment Engine** | `skills/TierZoo_Styling_Guide/tier_assignment_rules.md` | 티어 카드 표시 기준 |
+| **Generated Stats** | `data/stats/{episode_id}_stats.json` | 실제 캐릭터 스탯 데이터 |

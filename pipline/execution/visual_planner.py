@@ -86,7 +86,7 @@ JSON:
 """
     
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-5.4-nano", # orchestration.md 설계도 기준 모델 적용
         messages=[{"role": "system", "content": "You are a professional JSON generator for a video production engine."},
                   {"role": "user", "content": prompt}],
         response_format={"type": "json_object"}

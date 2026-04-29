@@ -1,0 +1,8 @@
+{
+    "scene_002": {
+        "status": "failed",
+        "attempt": 2,
+        "file": null,
+        "error": "generation_timeout"
+    }
+}

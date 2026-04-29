@@ -9,7 +9,7 @@
 - **Backend:** Node.js
 - **Style:** Tailwind CSS
 - **Language:** TypeScript
-- **AI/Analysis:** NotebookLM, Gemini API (대본 및 분석용)
+- **AI/Analysis:** NotebookLM, OpenAI API (gpt-5.3 계열)
 
 ## 📋 Current Progress (Logs)
 - [2026-04-07] 프로젝트 환경 설정 및 Global Rules 정의 완료.
@@ -66,7 +66,7 @@
 **입력:**
 - `{episode_id}_source.md`
 
-**LLM 역할 (`gpt-5.3-mini`):**
+**LLM 역할 (`gpt-5.4-mini`):**
 - 역사 자료 → 게임 스탯 / 상성 / 티어 분석
 
 **Code 역할:**
@@ -86,7 +86,7 @@
 - `stats.json`
 - `template/pening_game_over_structure.md` (조건부 비극 에피소드용)
 
-**LLM 역할 (`gpt-5.3`):**
+**LLM 역할 (`gpt-5.4`):**
 - TierZoo 스타일 롱폼 대본 작성 (AV Script 포맷, VIDEO/AUDIO 분리, visual tags 포함)
 - 단 1회 호출로 최종 완성본 도출
 
@@ -124,7 +124,7 @@
 - `.agents/skills/TierZoo_Styling_Guide/ui_schema.json`
 - `stats.json`
 
-**LLM 역할 (`gpt-5.3-mini`):**
+**LLM 역할 (`gpt-5.4-nano`):**
 - 대본을 Remotion용 JSON 스키마로 변환
 - 이미지 생성 프롬프트 추출
 
@@ -193,7 +193,7 @@
 ## 실제 엔진 구조 (최종 형태) & API 연결 위치
 
 **크레딧 방어 최적화 흐름:**
-`source.md` → **Code** → `stats.json` (gpt-5.3-mini) → **TierZoo_Writer (gpt-5.3)** → `script.md` → **Code Check** → `review_report.json` → **Visual Director (gpt-5.3-mini)** → `scenario.json` & `prompts.md` → **Code Batch** → `images` → **Code Render** → `final.mp4` → **Code Backup**
+`source.md` → **Code** → `stats.json` (gpt-5.4-mini) → **TierZoo_Writer (gpt-5.4)** → `script.md` → **Code Check** → `review_report.json` → **Visual Director (gpt-5.4-nano)** → `scenario.json` & `prompts.md` → **Code Batch** → `images` → **Code Render** → `final.mp4` → **Code Backup**
 
 ---
 
@@ -201,9 +201,9 @@
 
 이게 되면 Chronos MVP 완성입니다:
 - [ ] `source.md` 넣기
-- [ ] `stats.json` 자동 생성 (gpt-5.3-mini)
-- [ ] `script.md` 단일 자동 생성 (gpt-5.3)
+- [ ] `stats.json` 자동 생성 (gpt-5.4-mini)
+- [ ] `script.md` 단일 자동 생성 (gpt-5.4)
 - [ ] `review_report.json` 코드 기반 자동 생성 (LLM ❌)
-- [ ] `scenario.json` 단일 파일 생성 (gpt-5.3-mini)
+- [ ] `scenario.json` 단일 파일 생성 (gpt-5.4-nano)
 - [ ] `remotion render` 실행 (LLM ❌)
 - [ ] `mp4` 출력

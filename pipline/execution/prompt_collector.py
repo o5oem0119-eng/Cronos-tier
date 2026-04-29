@@ -12,7 +12,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 EPISODE_ID = "danjong_tragedy_long"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 SCENES_DIR = os.path.join(BASE_DIR, "data", "generated", EPISODE_ID, "scenes")
-OUTPUT_PATH = os.path.join(BASE_DIR, "data", "generated", EPISODE_ID, "image_prompts.md")
+OUTPUT_PATH = os.path.join(BASE_DIR, "data", "generated", EPISODE_ID, "image_prompts.json")
 STYLE_PRESET_PATH = os.path.join(BASE_DIR, "knowledge", "reference", "Visual_Style_Preset.md")
 
 # 스타일 프리셋 로드
@@ -25,33 +25,57 @@ def generate_image_prompt(scene_json):
     components = [c['type'] for c in scene_json['scene_structure']['components']]
     
     prompt = f"""
-너는 Chronos Engine의 Asset Director이다.
-아래의 장면(Scene) 정보를 바탕으로, 배경으로 사용할 'Cinematic 2D Vector Art'를 위한 이미지 생성 프롬프트를 작성하라.
+ROLE:
+image prompt generator for historical documentary YouTube videos with game UI style
 
-[장면 정보]
-Scene ID: {scene_id}
-Narration: {narration}
-UI Components: {', '.join(components)}
+INPUT:
+scene_id: {scene_id}
+narration: {narration}
+ui_components: {', '.join(components)}
+visual_style_reference: {STYLE_PRESET}
 
-[참조 스타일 가이드]
-{STYLE_PRESET}
+TASK:
+convert each scene unit into image-generation prompts for historical documentary visuals
 
-[작성 규칙]
-1. 장면의 핵심 사건이나 분위기를 묘사하는 영어 프롬프트를 작성하라.
-2. 반드시 스타일 가이드의 'Master Style Prompt' 접미사를 포함하라.
-3. UI 컴포넌트가 배치될 위치(하단 30%)는 단순하게 처리하도록 지시하라.
-4. 결과물은 반드시 해당 장면의 ID와 프롬프트만 포함하는 마크다운 형식으로 출력하라.
+PROCESS:
+1 read the scene unit (narration and UI components)
+2 identify:
+- historical period (Joseon Dynasty)
+- location
+- main subject
+- clothing / armor / props
+- mood
+- camera angle
+- composition
+- lighting
+- background details
+3 generate one main image prompt per scene in English
+4 keep prompts historically grounded based on provided source material
+5 avoid modern objects unless explicitly required (apply negative prompts)
+6 create prompts suitable for cinematic AI image generation
+7 game UI overlay suggestion: If UI components exist, dictate composition to leave the bottom 30% with empty space/negative space (e.g., blurry ground, shadows) so UI elements do not cover the main subject.
 
-JSON:
+OUTPUT FORMAT:
+(Must Output strictly in valid JSON format)
+{{
+    "scene_id": "{scene_id}",
+    "scene_title": "A short dramatic title for the scene",
+    "description": "Scene summary and camera motion suggestion",
+    "prompt": "Main image prompt (must include {STYLE_PRESET} suffix and UI overlay negative space instructions)",
+    "negative_prompt": "modern objects, text, ui, artifacts",
+    "status": "pending",
+    "retry_count": 0
+}}
 """
     
     response = client.chat.completions.create(
-        model="gpt-4o-mini", # 비용 절감을 위해 mini 사용
-        messages=[{"role": "system", "content": "You are a professional AI image prompt engineer."},
-                  {"role": "user", "content": prompt}]
+        model="gpt-5.4-nano", # orchestration.md 설계도 기준 모델 적용
+        messages=[{"role": "system", "content": "You are a professional AI image prompt engineer. Always output valid JSON."},
+                  {"role": "user", "content": prompt}],
+        response_format={"type": "json_object"}
     )
     
-    return response.choices[0].message.content
+    return json.loads(response.choices[0].message.content)
 
 def main():
     scene_files = sorted(glob.glob(os.path.join(SCENES_DIR, "scene_*.json")))
@@ -71,8 +95,7 @@ def main():
             print(f"Failed {scene_id}: {e}", flush=True)
             
     with open(OUTPUT_PATH, "w", encoding="utf-8") as f:
-        f.write("# 🖼️ Image Generation Prompts\n\n")
-        f.write("\n\n---\n\n".join(prompts))
+        json.dump(prompts, f, ensure_ascii=False, indent=4)
         
     print(f"Successfully saved prompts to {OUTPUT_PATH}", flush=True)
 

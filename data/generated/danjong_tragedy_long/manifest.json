@@ -4,5 +4,35 @@
         "attempt": 2,
         "file": null,
         "error": "generation_timeout"
+    },
+    "scene_006": {
+        "status": "failed",
+        "attempt": 1,
+        "timestamp": "2026-04-29T06:26:35.247Z",
+        "error": "locator.hover: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('img[src*=\"lh3.googleusercontent.com\"]').nth(4)\u001b[22m\n"
+    },
+    "scene_007": {
+        "status": "failed",
+        "attempt": 1,
+        "timestamp": "2026-04-29T06:27:05.323Z",
+        "error": "locator.hover: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('img[src*=\"lh3.googleusercontent.com\"]').nth(3)\u001b[22m\n"
+    },
+    "scene_008": {
+        "status": "failed",
+        "attempt": 1,
+        "timestamp": "2026-04-29T06:27:11.123Z",
+        "error": "locator.hover: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('img[src*=\"lh3.googleusercontent.com\"]').nth(2)\u001b[22m\n"
+    },
+    "scene_009": {
+        "status": "failed",
+        "attempt": 1,
+        "timestamp": "2026-04-29T06:27:11.128Z",
+        "error": "locator.hover: Target page, context or browser has been closed"
+    },
+    "scene_010": {
+        "status": "failed",
+        "attempt": 1,
+        "timestamp": "2026-04-29T06:27:11.132Z",
+        "error": "locator.hover: Target page, context or browser has been closed"
     }
 }

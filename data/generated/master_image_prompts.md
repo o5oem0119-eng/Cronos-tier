@@ -1,6 +1,6 @@
 # 🎨 [Chronos Tier] Image Prompt List: Episode 1
 
-본 프롬프트 리스트는 `reference/Visual_Style_Preset.md`에서 정의된 **Cinematic 2D Vector Art** 화풍을 충실히 따릅니다.
+본 프롬프트 리스트는 `raw/Visual_Style_Preset.md`에서 정의된 **Cinematic 2D Vector Art** 화풍을 충실히 따릅니다.
 
 ---
 

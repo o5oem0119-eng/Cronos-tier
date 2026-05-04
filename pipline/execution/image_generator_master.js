@@ -15,8 +15,14 @@ const MANIFEST_FILE = path.join(__dirname, "../../data/generated/danjong_tragedy
 const USER_DATA_DIR = path.join(__dirname, "../../.chrome_session");
 
 async function runGenerator() {
-    const rawPrompts = fs.readFileSync(PROMPTS_FILE, "utf-8").split("\n").map(p => p.trim()).filter(p => p.length > 0);
-    const scenes = rawPrompts.map((prompt, index) => ({ id: `scene_${String(index + 1).padStart(3, "0")}`, prompt }));
+    const rawLines = fs.readFileSync(PROMPTS_FILE, "utf-8").split("\n").map(p => p.trim()).filter(p => p.length > 0);
+    const scenes = rawLines.map((line, index) => {
+        const match = line.match(/^scene_(\d+):\s*(.*)/);
+        if (match) {
+            return { id: `scene_${match[1]}`, prompt: match[2] };
+        }
+        return { id: `scene_${String(index + 1).padStart(3, "0")}`, prompt: line };
+    });
 
     let manifest = fs.existsSync(MANIFEST_FILE) ? JSON.parse(fs.readFileSync(MANIFEST_FILE, "utf-8")) : {};
     let todoScenes = scenes.filter(s => manifest[s.id]?.status !== "success");
@@ -79,7 +85,7 @@ async function executeWorker(workerId, page, chunk, manifest, projectUrl) {
             await page.waitForTimeout(1000);
 
             // 비율 (LANDSCAPE = 16:9)
-            await page.locator('button[id*="-trigger-LANDSCAPE"]').click();
+            await page.locator('button[id$="-trigger-LANDSCAPE"]').first().click();
             
             // 생성 개수 (1개)
             await page.locator('button[id*="-trigger-1"]').click();
@@ -99,38 +105,65 @@ async function executeWorker(workerId, page, chunk, manifest, projectUrl) {
             await page.keyboard.press('Control+A');
             await page.keyboard.press('Backspace');
             await textbox.fill(scene.prompt);
-            await page.locator('button:has(i:text-is("arrow_forward")), button:has-text("만들기")').first().click();
-            await page.waitForTimeout(2000);
+            await page.keyboard.press('Enter');
+            await page.waitForTimeout(3000); // 생성 시작 대기
             console.log(`[Worker Tab ${workerId}] ${scene.id} 제출 완료.`);
         }
 
-        // 3. 완료 대기 (% 기호가 없는 이미지가 목표 개수만큼 나올 때까지)
+        // 3. 완료 대기 (스톨 감지 포함 - 일정 시간 변화 없으면 포기)
         const targetTotal = initialCount + chunk.length;
         let attempts = 0;
+        let lastCount = -1;
+        let stallCount = 0;
         while (attempts < 120) {
             await page.waitForTimeout(5000);
-            // "%" 텍스트를 포함하지 않는(생성 완료된) 이미지 그리드 아이템 개수 확인
             const currentDoneCount = await page.locator('div[role="button"]:has(img):not(:has-text("%"))').count();
-            console.log(`[Worker Tab ${workerId}] 진행 상황: ${currentDoneCount}/${targetTotal}`);
-            
+            console.log(`[Worker Tab ${workerId}] 진행 상황: ${currentDoneCount - initialCount}/${chunk.length}`);
+
             if (currentDoneCount >= targetTotal) {
-                await page.waitForTimeout(5000); // 최종 안정화
+                await page.waitForTimeout(3000); // 최종 안정화
                 break;
             }
+            // 변화 없으면 스톨 카운트 증가 (5초 * 6 = 30초 변화 없으면 포기)
+            if (currentDoneCount === lastCount) {
+                stallCount++;
+                if (stallCount >= 6) {
+                    console.log(`[Worker Tab ${workerId}] 생성 중단 감지. 실제 생성된 것만 다운로드합니다.`);
+                    break;
+                }
+            } else {
+                stallCount = 0;
+            }
+            lastCount = currentDoneCount;
             attempts++;
         }
 
-        // 4. 다운로드
-        console.log(`[Worker Tab ${workerId}] 일괄 다운로드 시작...`);
+        // 4. 실제 생성된 이미지 수 확인 후 다운로드
+        const actualDoneCount = await page.locator('div[role="button"]:has(img):not(:has-text("%"))').count();
+        const actualGenerated = actualDoneCount - initialCount; // 이번 배치에서 실제 생성된 수
+
+        console.log(`[Worker Tab ${workerId}] 일괄 다운로드 시작... (${actualGenerated}/${chunk.length}개 생성 완료)`);
+
+        // 최신 이미지부터 순서대로 다운로드 (그리드 인덱스 0이 가장 최신)
+        let downloadedCount = 0;
         for (let i = 0; i < chunk.length; i++) {
-            const imageIndex = i; // 0이 가장 최신
-            const sceneIndex = chunk.length - 1 - i;
+            const sceneIndex = chunk.length - 1 - i; // 제일 나중에 제출한 것 = 인덱스 0
             const scene = chunk[sceneIndex];
+            
+            if (downloadedCount >= actualGenerated) {
+                // 생성 자체가 안 된 씬 -> 실패로 기록
+                console.log(`[${scene.id}] 생성 실패 (이미지 미생성) -> 나중에 재시도`);
+                updateManifest(scene.id, "failed", "image_not_generated");
+                continue;
+            }
+
             try {
-                await downloadSceneImage(page, scene.id, imageIndex);
+                await downloadSceneImage(page, scene.id, downloadedCount);
                 updateManifest(scene.id, "success");
+                downloadedCount++;
             } catch (e) {
                 updateManifest(scene.id, "failed", e.message);
+                downloadedCount++; // 다운로드 시도는 했으므로 인덱스 진행
             }
         }
     } catch (err) {

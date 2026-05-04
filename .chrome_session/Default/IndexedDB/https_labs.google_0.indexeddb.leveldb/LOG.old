@@ -1,6 +1,0 @@
-2026/04/29-15:27:16.169 3248 Creating DB C:\Users\pjm28\OneDrive\Desktop\크로노스 티어\.chrome_session\Default\IndexedDB\https_labs.google_0.indexeddb.leveldb since it was missing.
-2026/04/29-15:27:16.179 3248 Reusing MANIFEST C:\Users\pjm28\OneDrive\Desktop\크로노스 티어\.chrome_session\Default\IndexedDB\https_labs.google_0.indexeddb.leveldb/MANIFEST-000001
-2026/04/29-15:27:16.382 2da8 Level-0 table #5: started
-2026/04/29-15:27:16.388 2da8 Level-0 table #5: 1298 bytes OK
-2026/04/29-15:27:16.390 2da8 Delete type=0 #3
-2026/04/29-15:27:16.391 1e7c Manual compaction at level-0 from '\x00\x01\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x02\x00\x00\x00' @ 0 : 0; will stop at (end)

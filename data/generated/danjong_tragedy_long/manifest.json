@@ -1,38 +1,74 @@
 {
     "scene_002": {
         "status": "failed",
-        "attempt": 2,
-        "file": null,
-        "error": "generation_timeout"
+        "attempt": 4,
+        "timestamp": "2026-05-04T16:07:27.144Z",
+        "error": "page.waitForEvent: Timeout 30000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================"
     },
     "scene_006": {
-        "status": "failed",
-        "attempt": 1,
-        "timestamp": "2026-04-29T06:26:35.247Z",
-        "error": "locator.hover: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('img[src*=\"lh3.googleusercontent.com\"]').nth(4)\u001b[22m\n"
+        "status": "success",
+        "attempt": 7,
+        "timestamp": "2026-05-04T16:05:32.252Z",
+        "error": null
     },
     "scene_007": {
         "status": "failed",
-        "attempt": 1,
-        "timestamp": "2026-04-29T06:27:05.323Z",
-        "error": "locator.hover: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('img[src*=\"lh3.googleusercontent.com\"]').nth(3)\u001b[22m\n"
+        "attempt": 7,
+        "timestamp": "2026-05-04T15:58:33.776Z",
+        "error": "page.waitForEvent: Timeout 30000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================"
     },
     "scene_008": {
         "status": "failed",
-        "attempt": 1,
-        "timestamp": "2026-04-29T06:27:11.123Z",
-        "error": "locator.hover: Target page, context or browser has been closed\nCall log:\n\u001b[2m  - waiting for locator('img[src*=\"lh3.googleusercontent.com\"]').nth(2)\u001b[22m\n"
+        "attempt": 7,
+        "timestamp": "2026-05-04T15:57:48.153Z",
+        "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('div[role=\"button\"]:has(img)').nth(3).locator('button:has(i:text-is(\"more_vert\")), button:has-text(\"more_vert\")').first() to be visible\u001b[22m\n"
     },
     "scene_009": {
         "status": "failed",
-        "attempt": 1,
-        "timestamp": "2026-04-29T06:27:11.128Z",
-        "error": "locator.hover: Target page, context or browser has been closed"
+        "attempt": 7,
+        "timestamp": "2026-05-04T15:57:42.083Z",
+        "error": "page.waitForEvent: Timeout 30000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================"
     },
     "scene_010": {
-        "status": "failed",
+        "status": "success",
+        "attempt": 6,
+        "timestamp": "2026-05-04T15:50:22.737Z",
+        "error": null
+    },
+    "scene_005": {
+        "status": "success",
         "attempt": 1,
-        "timestamp": "2026-04-29T06:27:11.132Z",
-        "error": "locator.hover: Target page, context or browser has been closed"
+        "timestamp": "2026-05-04T15:50:07.959Z",
+        "error": null
+    },
+    "scene_004": {
+        "status": "success",
+        "attempt": 2,
+        "timestamp": "2026-05-04T16:05:50.356Z",
+        "error": null
+    },
+    "scene_003": {
+        "status": "failed",
+        "attempt": 2,
+        "timestamp": "2026-05-04T16:06:38.988Z",
+        "error": "page.waitForEvent: Timeout 30000ms exceeded while waiting for event \"download\"\n=========================== logs ===========================\nwaiting for event \"download\"\n============================================================"
+    },
+    "scene_001": {
+        "status": "failed",
+        "attempt": 2,
+        "timestamp": "2026-05-04T16:07:37.156Z",
+        "error": "locator.waitFor: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('div[role=\"button\"]:has(img)').nth(4) to be visible\u001b[22m\n"
+    },
+    "scene_012": {
+        "status": "success",
+        "attempt": 1,
+        "timestamp": "2026-05-04T15:56:44.558Z",
+        "error": null
+    },
+    "scene_011": {
+        "status": "success",
+        "attempt": 1,
+        "timestamp": "2026-05-04T15:56:58.395Z",
+        "error": null
     }
 }

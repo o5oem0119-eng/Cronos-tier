@@ -4,94 +4,47 @@ import re
 from openai import OpenAI
 from dotenv import load_dotenv
 
-# 환경 변수 로드
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# 경로 설정
-EPISODE_ID = "danjong_tragedy_long"
+EPISODE_ID = "mongol_empire"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SCRIPT_PATH = os.path.join(BASE_DIR, "data", "generated", EPISODE_ID, "script_v4.md")
-OUTPUT_DIR = os.path.join(BASE_DIR, "data", "generated", EPISODE_ID, "scenes")
-SCHEMA_DIR = os.path.join(BASE_DIR, ".agents", "skills", "TierZoo_Styling_Guide")
+SCRIPT_PATH = os.path.join(BASE_DIR, "data", "generated", EPISODE_ID, "script.md")
+OUTPUT_DIR = os.path.join(BASE_DIR, "data", "generated", EPISODE_ID)
 
-# 데이터 로드
-with open(os.path.join(SCHEMA_DIR, "scene_schema.json"), "r", encoding="utf-8") as f:
-    SCENE_SCHEMA = f.read()
-with open(os.path.join(SCHEMA_DIR, "ui_schema.json"), "r", encoding="utf-8") as f:
-    UI_SCHEMA = f.read()
-with open(os.path.join(SCHEMA_DIR, "visual_tag_map.md"), "r", encoding="utf-8") as f:
-    VISUAL_TAG_MAP = f.read()
-with open(os.path.join(BASE_DIR, "data", "stats", f"{EPISODE_ID}_stats.json"), "r", encoding="utf-8") as f:
-    STATS_JSON = f.read()
-
-def parse_markdown_script(file_path):
-    with open(file_path, "r", encoding="utf-8") as f:
-        content = f.read()
-    
-    # Stage별로 분리
-    stages = re.split(r"## ■ STAGE \d+:", content)
-    metadata = stages[0]
-    stages = stages[1:]
-    
-    all_scenes = []
-    for stage_idx, stage_content in enumerate(stages):
-        # 테이블 추출
-        table_match = re.search(r"\| VIDEO \| AUDIO \|\n\| :--- \| :--- \|\n((?:\|.*\|(?:\n|$))*)", stage_content)
-        if table_match:
-            rows = table_match.group(1).strip().split("\n")
-            for row in rows:
-                cols = [c.strip() for c in row.split("|") if c.strip()]
-                if len(cols) >= 2:
-                    all_scenes.append({
-                        "stage": stage_idx + 1,
-                        "video": cols[0],
-                        "audio": cols[1]
-                    })
-    
-    return all_scenes
-
-def generate_scene_json(scene_data, scene_index):
+def generate_visual_plans(script_content):
     prompt = f"""
-너는 Chronos Engine의 Visual Planner이다.
-아래의 대본 행(Row)을 분석하여 Remotion 렌더링을 위한 JSON 데이터로 변환하라.
-
-[대본 정보]
-VIDEO: {scene_data['video']}
-AUDIO: {scene_data['audio']}
-
-[참조 데이터]
-STATS_JSON:
-{STATS_JSON}
-
-[참조 스키마]
-SCENE_SCHEMA:
-{SCENE_SCHEMA}
-
-UI_SCHEMA:
-{UI_SCHEMA}
-
-VISUAL_TAG_MAP:
-{VISUAL_TAG_MAP}
+너는 Chronos Engine의 Visual Planner(Visual_Director 에이전트)이다.
+아래의 전체 대본을 분석하여, 단일 `scenario.json`과 `asset_plan.json`을 생성하라.
 
 [작성 규칙]
-1. 반드시 JSON 형식으로만 답변하라.
-2. `scene_id`는 `scene_{scene_index:02d}` 형식으로 작성하라.
-3. `components` 배열에는 `ui_schema.json`에 정의된 컴포넌트 타입을 사용하라.
-4. `visual_tag_map.md`를 참조하여 VIDEO 지시어를 적절한 컴포넌트와 속성으로 매핑하라.
-5. `narration_text`는 AUDIO 컬럼의 NARRATOR 대사만 추출하여 작성하라.
-6. `audio` 객체에는 `music_cue`와 `sfx`를 포함하라.
+1. `scenario.json`: 모든 씬을 배열로 포함하는 단일 JSON. 
+   - 각 씬은 `background` (1, 2, 3 중 하나), `text` (자막바 텍스트), `components` (StatCard, WobblySpeechBubble 등 V4 컴포넌트 목록) 속성을 가져야 함.
+2. `asset_plan.json`: 대본 전체에 필요한 사료 이미지와 캐릭터 생성 정보를 담음.
+   - `sources`: [{{"id": "src_01", "keyword": "...", "scene_index": 0}}]
+   - `characters`: [{{"id": "char_01", "nation": "mongol", "animal": "wolf", "attire": "..."}}]
+3. 오직 아래 지정된 JSON 형식으로만 2개의 키를 가진 JSON 객체를 리턴하라:
+{{
+  "scenario": {{
+    "scenes": [ ... ]
+  }},
+  "asset_plan": {{
+    "sources": [ ... ],
+    "characters": [ ... ]
+  }}
+}}
 
-JSON:
+[전체 대본]
+{script_content}
 """
-    
     response = client.chat.completions.create(
-        model="gpt-5.4-nano", # orchestration.md 설계도 기준 모델 적용
-        messages=[{"role": "system", "content": "You are a professional JSON generator for a video production engine."},
-                  {"role": "user", "content": prompt}],
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "You output only valid JSON."},
+            {"role": "user", "content": prompt}
+        ],
         response_format={"type": "json_object"}
     )
-    
     return json.loads(response.choices[0].message.content)
 
 def main():
@@ -99,19 +52,29 @@ def main():
         os.makedirs(OUTPUT_DIR)
         
     print(f"Loading script: {SCRIPT_PATH}", flush=True)
-    scenes = parse_markdown_script(SCRIPT_PATH)
-    print(f"Detected {len(scenes)} scenes.", flush=True)
+    if not os.path.exists(SCRIPT_PATH):
+        print("Script file not found. Run Stage 2 first.")
+        return
+
+    with open(SCRIPT_PATH, "r", encoding="utf-8") as f:
+        script_content = f.read()
     
-    for i, scene in enumerate(scenes):
-        print(f"Converting scene {i:02d}... (Stage {scene['stage']})", flush=True)
-        try:
-            scene_json = generate_scene_json(scene, i)
-            file_name = f"scene_{i:02d}.json"
-            with open(os.path.join(OUTPUT_DIR, file_name), "w", encoding="utf-8") as f:
-                json.dump(scene_json, f, indent=4, ensure_ascii=False)
-            print(f"Saved: {file_name}", flush=True)
-        except Exception as e:
-            print(f"Failed scene {i:02d}: {e}", flush=True)
+    print("Generating visual plans via LLM...", flush=True)
+    try:
+        plans = generate_visual_plans(script_content)
+        
+        scenario_path = os.path.join(OUTPUT_DIR, "scenario.json")
+        with open(scenario_path, "w", encoding="utf-8") as f:
+            json.dump(plans.get("scenario", {}), f, indent=4, ensure_ascii=False)
+        print(f"Saved: {scenario_path}", flush=True)
+        
+        asset_plan_path = os.path.join(OUTPUT_DIR, "asset_plan.json")
+        with open(asset_plan_path, "w", encoding="utf-8") as f:
+            json.dump(plans.get("asset_plan", {}), f, indent=4, ensure_ascii=False)
+        print(f"Saved: {asset_plan_path}", flush=True)
+            
+    except Exception as e:
+        print(f"Failed to generate plans: {e}", flush=True)
 
 if __name__ == "__main__":
     main()

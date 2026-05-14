@@ -24,14 +24,10 @@ def review_script(content):
         report["passed"] = False
         report["issues"].append("Found specific stat numbers in narration. Stats must be strictly separated and shown via UI only.")
     
-    # 3. 씬 수량 기준 검사 (10분 영상 기준 최소 40씬)
-    # [VISUAL] 태그 개수를 씬 수로 산정
+    # 3. 씬 수량 카운트 (참고용 — 최소 기준 없음)
+    # 실제 씬 duration은 오디오 파일 길이로 결정됨. 수량 자체는 강제하지 않음.
     scene_count = content.count("[VISUAL]")
     report["scene_count"] = scene_count
-    if scene_count < 40:
-        report["warnings"].append(
-            f"Scene count is {scene_count}. V4 standard requires at least 40 scenes for a 10-min video (1 scene per 10~15 seconds). Consider adding more [VISUAL] tags."
-        )
     
     return report
 

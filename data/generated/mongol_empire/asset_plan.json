@@ -2,8 +2,33 @@
     "sources": [
         {
             "id": "src_01",
-            "keyword": "몽골 제국 최강 국가",
+            "keyword": "Mongolian steppe landscape nomads",
+            "scene_index": 1
+        },
+        {
+            "id": "src_02",
+            "keyword": "Medieval Eurasia map 13th century",
+            "scene_index": 2
+        },
+        {
+            "id": "src_05",
+            "keyword": "Medieval European knight armor illustration",
             "scene_index": 5
+        },
+        {
+            "id": "src_07",
+            "keyword": "Mongol cavalry warrior painting",
+            "scene_index": 7
+        },
+        {
+            "id": "src_09",
+            "keyword": "13th century medieval battle painting",
+            "scene_index": 9
+        },
+        {
+            "id": "src_10",
+            "keyword": "Medieval stone fortress wall",
+            "scene_index": 10
         }
     ],
     "characters": [
@@ -11,7 +36,7 @@
             "id": "char_01",
             "nation": "mongol",
             "animal": "wolf",
-            "attire": "초원 전사 의상"
+            "attire": "Mongolian steppe warrior attire with thick white sticker outline"
         }
     ]
 }

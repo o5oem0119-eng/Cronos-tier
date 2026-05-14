@@ -7,7 +7,7 @@ import { HighlightText } from './HighlightText';
 import { Pictographic } from './Pictographic';
 import { BattleScene } from './BattleScene';
 import { SourceBadge } from './SourceBadge';
-import { colors } from '../designTokens';
+import { colors, filters } from '../designTokens';
 
 // 배경 이미지 경로 매핑 (assets/bg/ 폴더의 실제 이미지)
 const BG_MAP: Record<string, string> = {
@@ -15,11 +15,6 @@ const BG_MAP: Record<string, string> = {
   '2': staticFile('assets/bg/2.jpg'),
   '3': staticFile('assets/bg/3.jpg'),
 };
-
-// 캐릭터에 흰색 sticker 테두리를 입히는 CSS filter
-// drop-shadow를 여러 방향으로 겹쳐서 두꺼운 흰색 외곽선처럼 보이게 만듦
-const STICKER_BORDER_FILTER =
-  'drop-shadow(0 0 8px white) drop-shadow(0 0 8px white) drop-shadow(0 0 8px white)';
 
 export type ComponentConfig = {
   type: 'StatCard' | 'WobblySpeechBubble' | 'HighlightText' | 'Pictographic' | 'BattleScene' | 'SourceBadge' | 'SourceImage' | 'CharacterDoodle';
@@ -70,7 +65,7 @@ export const SceneRenderer: React.FC<{ sceneData: SceneData }> = ({ sceneData })
             return <img key={idx} src={comp.props.src} style={{ ...positionStyle, width: comp.props.width || '800px', border: `8px solid ${colors.inkBorder}`, transform: 'rotate(-1.5deg)', boxShadow: '8px 12px 0 rgba(0,0,0,0.1)' }} />;
           case 'CharacterDoodle':
             // 캐릭터 누끼 이미지: 흰색 sticker 테두리 filter 적용
-            return <img key={idx} src={comp.props.src} style={{ ...positionStyle, height: comp.props.height || '500px', objectFit: 'contain', filter: STICKER_BORDER_FILTER }} />;
+            return <img key={idx} src={comp.props.src} style={{ ...positionStyle, height: comp.props.height || '500px', objectFit: 'contain', filter: filters.stickerBorder }} />;
           default:
             return null;
         }

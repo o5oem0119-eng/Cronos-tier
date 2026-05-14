@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors, typography } from '../designTokens';
+import { colors, typography, filters } from '../designTokens';
 
 export type BattleSceneProps = {
   leftName: string;
@@ -20,7 +20,7 @@ export const BattleScene: React.FC<BattleSceneProps> = ({ leftName, rightName, l
     }}>
       {/* 좌측 세력 */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img src={leftImg} style={{ width: '400px', objectFit: 'contain' }} />
+        <img src={leftImg} style={{ width: '400px', objectFit: 'contain', filter: filters.stickerBorder }} />
         <div style={{ 
           marginTop: '20px',
           fontSize: '52px', 
@@ -51,7 +51,7 @@ export const BattleScene: React.FC<BattleSceneProps> = ({ leftName, rightName, l
 
       {/* 우측 세력 */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img src={rightImg} style={{ width: '400px', objectFit: 'contain', transform: 'scaleX(-1)' }} />
+        <img src={rightImg} style={{ width: '400px', objectFit: 'contain', transform: 'scaleX(-1)', filter: filters.stickerBorder }} />
         <div style={{ 
           marginTop: '20px',
           fontSize: '52px', 

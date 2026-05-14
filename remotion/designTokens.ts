@@ -12,3 +12,7 @@ export const typography = {
   fontFamilyMain: '"Pretendard", "Noto Sans KR", sans-serif',
   fontFamilyHandwriting: '"Caveat", "Klee One", "Nanum Pen Script", cursive',
 };
+
+export const filters = {
+  stickerBorder: 'drop-shadow(0 0 8px white) drop-shadow(0 0 8px white) drop-shadow(0 0 8px white)',
+};

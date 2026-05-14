@@ -1,8 +1,6 @@
 {
     "passed": true,
     "issues": [],
-    "warnings": [
-        "Scene count is 24. V4 standard requires at least 40 scenes for a 10-min video (1 scene per 10~15 seconds). Consider adding more [VISUAL] tags."
-    ],
-    "scene_count": 24
+    "warnings": [],
+    "scene_count": 68
 }

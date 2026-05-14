@@ -10,7 +10,8 @@ OUTPUT_PATH = os.path.join(BASE_DIR, "data", "generated", EPISODE_ID, "review_re
 def review_script(content):
     report = {
         "passed": True,
-        "issues": []
+        "issues": [],
+        "warnings": []
     }
     
     # 1. [VISUAL] 태그 사용 검사
@@ -22,7 +23,16 @@ def review_script(content):
     if re.search(r"(방어력|공격력|생존력|기동력)이 \d+", content):
         report["passed"] = False
         report["issues"].append("Found specific stat numbers in narration. Stats must be strictly separated and shown via UI only.")
-        
+    
+    # 3. 씬 수량 기준 검사 (10분 영상 기준 최소 40씬)
+    # [VISUAL] 태그 개수를 씬 수로 산정
+    scene_count = content.count("[VISUAL]")
+    report["scene_count"] = scene_count
+    if scene_count < 40:
+        report["warnings"].append(
+            f"Scene count is {scene_count}. V4 standard requires at least 40 scenes for a 10-min video (1 scene per 10~15 seconds). Consider adding more [VISUAL] tags."
+        )
+    
     return report
 
 def main():

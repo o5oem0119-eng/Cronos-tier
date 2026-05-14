@@ -1,0 +1,17 @@
+{
+    "sources": [
+        {
+            "id": "src_01",
+            "keyword": "몽골 제국 최강 국가",
+            "scene_index": 5
+        }
+    ],
+    "characters": [
+        {
+            "id": "char_01",
+            "nation": "mongol",
+            "animal": "wolf",
+            "attire": "초원 전사 의상"
+        }
+    ]
+}

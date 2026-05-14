@@ -1,0 +1,125 @@
+{
+    "scenes": [
+        {
+            "background": 1,
+            "text": "당시 초원에는 제대로 된 성벽도, 거대한 도시도 없는 세력이 있었습니다.",
+            "components": [
+                {
+                    "type": "CharacterDoodle",
+                    "props": {
+                        "src": "/assets/characters/mongol/doodle.png"
+                    }
+                }
+            ]
+        },
+        {
+            "background": 1,
+            "text": "농업 기반도 약했고, 안정적인 보급 체계도 부족했습니다.",
+            "components": [
+                {
+                    "type": "CharacterDoodle",
+                    "props": {
+                        "src": "/assets/characters/mongol/doodle.png"
+                    }
+                }
+            ]
+        },
+        {
+            "background": 1,
+            "text": "당시 기준으로는 절대 세계 제국이 될 수 없는 조건이었죠. 그런데 이상하게도.",
+            "components": [
+                {
+                    "type": "CharacterDoodle",
+                    "props": {
+                        "src": "/assets/characters/mongol/doodle.png"
+                    }
+                }
+            ]
+        },
+        {
+            "background": 2,
+            "text": "이들은 유라시아 최강 국가들을 하나씩 무너뜨리기 시작합니다.",
+            "components": [
+                {
+                    "type": "HighlightText",
+                    "props": {
+                        "text": "유라시아 최강 국가들"
+                    }
+                }
+            ]
+        },
+        {
+            "background": 2,
+            "text": "중국. 페르시아. 러시아. 이슬람 세계. 그리고 유럽까지.",
+            "components": [
+                {
+                    "type": "HighlightText",
+                    "props": {
+                        "text": "중국, 페르시아, 러시아, 이슬람 세계, 유럽"
+                    }
+                }
+            ]
+        },
+        {
+            "background": 3,
+            "text": "당시 세계가 믿고 있던 전쟁의 공식 자체가 흔들리기 시작한 겁니다.",
+            "components": [
+                {
+                    "type": "SourceImage",
+                    "props": {
+                        "src": "/assets/sources/mongol_empire/src_01.png"
+                    }
+                }
+            ]
+        },
+        {
+            "background": 3,
+            "text": "그 이름은. 몽골.",
+            "components": [
+                {
+                    "type": "CharacterDoodle",
+                    "props": {
+                        "src": "/assets/characters/mongol/doodle.png"
+                    }
+                }
+            ]
+        },
+        {
+            "background": 1,
+            "text": "성벽도, 도시도 없는 세력이...",
+            "components": [
+                {
+                    "type": "WobblySpeechBubble",
+                    "props": {
+                        "text": "성벽도, 도시도 없는 세력이...",
+                        "direction": "left"
+                    }
+                }
+            ]
+        },
+        {
+            "background": 1,
+            "text": "그리고 이건 단순한 정복 이야기가 아닙니다.",
+            "components": [
+                {
+                    "type": "CharacterDoodle",
+                    "props": {
+                        "src": "/assets/characters/mongol/doodle.png"
+                    }
+                }
+            ]
+        },
+        {
+            "background": 1,
+            "text": "역사상 가장 압도적인 초고속 기동 전쟁의 이야기입니다.",
+            "components": [
+                {
+                    "type": "CharacterDoodle",
+                    "props": {
+                        "src": "/assets/characters/mongol/doodle.png"
+                    }
+                }
+            ]
+        }
+    ]
+}

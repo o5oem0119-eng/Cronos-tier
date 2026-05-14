@@ -1,4 +1,4 @@
-# 🎬 Episode Template — Chronos Engine
+# 🎬 Episode Template — Chronos Engine (V4)
 
 ## Episode Metadata
 
@@ -30,197 +30,90 @@ target_runtime:
 - source_02:
 - source_03:
 
-Optional
+---
 
-- academic_reference:
-- documentary_reference:
-- primary_source:
+# Stage 1 — Historical Analysis
 
-Output file
+Agent: History_Strategist
 
-data/source/{episode_id}_source.md
+Generate:
+- `data/stats/{episode_id}_stats.json`
+- `data/generated/{episode_id}/optimized_analysis.md`
+
+Checklist:
+- [ ] 게임 스탯/상성 분석 완료 (UI 재료용)
 
 ---
 
-# Stage 1 — Historical Game Analysis
+# Stage 2 — Script Writing (V4)
 
-Agent
+Agent: TierZoo_Writer
 
-History_Strategist
+Generate:
+- `data/generated/{episode_id}/script.md`
 
-Generate
-
-data/stats/{episode_id}_stats.json
-
-data/generated/{episode_id}/optimized_analysis.md
-
-Checklist
-
-[ ] legitimacy 평가 완료
-
-[ ] political_power 평가 완료
-
-[ ] military_power 평가 완료
-
-[ ] support 구조 분석 완료
-
-[ ] survivability 분석 완료
-
-[ ] matchup 구조 분석 완료
-
-[ ] meta_shift 분석 완료
-
----
-
-# Stage 2 — Longform Script Writing
-
-Agent
-
-TierZoo_Writer
-
-Generate
-
-data/generated/{episode_id}/script_v1.md
-
-Script Requirements
-
-[ ] Hook 포함
-
-[ ] Server meta 설명 포함
-
-[ ] Base stats 분석 포함
-
-[ ] Special abilities 포함
-
-[ ] Matchups 분석 포함
-
-[ ] Meta shift 분석 포함
-
-[ ] Tier verdict 포함
+Script Requirements:
+- [ ] V4 서사 구조 적용
+- [ ] AV 포맷 아님 (단일 마크다운)
+- [ ] 내레이션에 스탯 수치 직접 언급 금지
+- [ ] 씬 단위로 `[VISUAL]` 태그 삽입
+- [ ] 리텐션 장치 (Open loop 등) 포함
 
 ---
 
 # Stage 3 — Script Review
 
-Agent
+Tool: `stage3_reviewer.py`
 
-TierZoo_Writer
+Checklist:
+- [ ] `[VISUAL]` 태그 정상 파싱 확인
+- [ ] 내레이션 내 구체적 스탯 수치 없음 확인
 
-Checklist
-
-[ ] open loop 포함
-
-[ ] pattern interrupt 포함
-
-[ ] emotion flip 포함
-
-[ ] retention pacing 유지
-
-Output
-
-script_v2.md
+Output:
+- `review_report.json`
 
 ---
 
 # Stage 4 — Visual Planning
 
-Agent
+Tool: `visual_planner.py` (LLM 연동)
 
-Visual_Director
+Generate:
+- `scenario.json` (단일 JSON 파일)
+- `asset_plan.json` (사료/캐릭터 수집 계획)
 
-Generate
-
-scene_plan.md
-
-image_prompts.md
-
-scene_01.json
-
-scene_02.json
-
-scene_03.json
-
-Checklist
-
-[ ] StatCard 포함
-
-[ ] SystemLog 포함
-
-[ ] TierCard 포함
-
-[ ] MapMove 포함 (필요 시)
-
-[ ] HPBar 포함 (필요 시)
+Checklist:
+- [ ] V4 컴포넌트(`SubtitleBar`, `StatCard`, `WobblySpeechBubble` 등) 기반으로 스키마 작성
+- [ ] `asset_plan.json`에 사료 키워드 및 동물 캐릭터 매핑 완료
 
 ---
 
 # Stage 5 — Asset Generation
 
-Tool
+Tool: `source_crawler.py`, `character_generator.py`
 
-TubeFlow / Google Labs Flow
+Generate:
+- `assets/sources/{episode_id}/*`
+- `assets/characters/{nation}/doodle.png`
 
-Generate
-
-assets/generated/{episode_id}/images/*
-
-Checklist
-
-[ ] character assets
-
-[ ] faction assets
-
-[ ] map assets
-
-[ ] symbolic assets
+Checklist:
+- [ ] 사료 이미지 다운로드 완료
+- [ ] 3단계 낙서체 캐릭터 누끼(PNG) 생성 완료
 
 ---
 
 # Stage 6 — Remotion Assembly
 
-Tool
+Tool: Remotion (`npx remotion render`)
 
-Remotion
+Generate:
+- `preview.mp4`
+- `final.mp4`
 
-Generate
-
-preview.mp4
-
-final.mp4
-
-Checklist
-
-[ ] StatCard animation 정상
-
-[ ] HPBar animation 정상
-
-[ ] SystemLog animation 정상
-
-[ ] TierCard animation 정상
-
-[ ] audio cue 정상
-
----
-
-# Stage 7 — Knowledge Feedback Loop
-
-Generate
-
-wiki/script-patterns/{episode_id}.md
-
-wiki/visual-patterns/{episode_id}.md
-
-wiki/production-lessons/{episode_id}.md
-
-Checklist
-
-[ ] reusable hook 저장
-
-[ ] reusable metaphor 저장
-
-[ ] reusable matchup logic 저장
-
-[ ] reusable pacing logic 저장
+Checklist:
+- [ ] `SceneRenderer.tsx`에서 모든 컴포넌트 정상 렌더링
+- [ ] 배경 (bg/1~3) 적용 확인
+- [ ] 캐릭터 스티커 테두리 효과 확인
 
 ---
 

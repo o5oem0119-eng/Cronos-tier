@@ -1,77 +1,113 @@
-# 🚀 Project: Chronos Engine (크로노스 엔진)
+# 🚀 Project: 크로노스 티어 (Chronos Tier)
 
-## 🎯 Goal
-- 역사, 경제 등 다양한 카테고리의 사건을 'Tier Zoo' 스타일의 게임 메타(스탯, 콤보, 패치노트 등)로 치환하여 분석.
-- 대본 생성부터 영상 편집까지 전 과정을 처리하는 유튜브 콘텐츠 제작 자동화 프로그램 개발.
+> **Supreme Authority:** 이 파일의 모든 지침은 작업의 최우선 순위임.
+> 최신 비전 마스터 문서: `reports/Chronos_V4_Vision.md`
+> 모든 디자인·스타일 결정은 이 파일과 비전 문서를 최종 기준으로 삼는다.
+
+---
+
+## 🎯 채널 정체성
+
+- **포맷:** TierZoo 스타일의 역사 분석 유튜브 채널
+- **톤:** 진지한 역사 분석 + 의도적으로 하찮은 낙서체 캐릭터의 긴장 구조
+- **차별화:** 네온/게임 UI 일체 금지. 클린 인포테인먼트 + 낙서 비주얼 언어.
+
+---
 
 ## 🛠 Tech Stack
-- **Frontend/Video:** React, Remotion (영상 렌더링용)
-- **Backend:** Node.js
-- **Style:** Tailwind CSS
-- **Language:** TypeScript
-- **AI/Analysis:** NotebookLM, OpenAI API (gpt-5.3 계열)
 
-## 📋 Current Progress (Logs)
-- [2026-04-07] 프로젝트 환경 설정 및 Global Rules 정의 완료.
-- [2026-04-07] 5가지 전문 요원 워크플로우(blueprint, reflector, fix, ui-polish, doc) 등록 완료.
-- [2026-04-07] 'Tier Zoo' 스타일의 역사 분석 로직 및 단종 비극 서사 템플릿 확보.
-- [2026-04-07] **유튜브 롱폼(10분+) 제작 전략 스킬(`Longform_Strategy`) 수립 및 `generate-video` 워크플로우 통합 완료.**
-- [2026-04-09] 에피소드 1(계유정난의 서막) 대본 및 이미지 프롬프트 생성 완료.
-- [2026-04-09] `wiki/` 내 28개 유튜브 제작 가이드라인 문서 학습 및 내부 메모리 저장 완료.
-- [2026-04-13] **자동화 엔진 사양 확정 (FHD 1080p, 30fps, NVIDIA GPU 가속 적용).**
-- [2026-04-13] **시나리오 생성(Scenario Generation) 단계 정의 및 `scene_01.json` 테스트 데이터 생성 완료.**
-- [2026-04-24] **범용 색상 시스템 규칙(`color_rules.md`) 수립.** 클래스별(왕, 후계자 등) 및 상태별(폐위, 사망 등) 색상 규격화 완료.
-- [2026-04-24] **'단종과 금성대군' 10분 롱폼 대본 및 119개 이미지 프롬프트 생성 완료.**
-- [2026-04-24] **리모션 2D 플랫 UI 컴포넌트 7종 및 동적 `SceneRenderer` 개발 완료.**
-- [2026-04-24] **파이프라인 최적화.** Stage 1, 4, 6, 7의 LLM 의존성을 제거하고 코드 기반 확정.
-
-## 🔜 Next Steps (Todo)
-1. [ ] **`scenario.json` 생성 (Stage 4 완료).** 119개 씬과 UI 상태값 매핑.
-2. [ ] **`Chronos Fast-Batcher` 실행 (Stage 5).** 119개 이미지 배치 생성 및 에셋 폴더 저장.
-3. [ ] **풀 에피소드 통합 렌더링 (Stage 6).** JSON 기반 전체 씬 자동 조립 및 mp4 출력.
-
-
-## ⚠️ Project Rules & Hierarchy
-- **Supreme Authority:** 이 파일(`orchestration.md`)의 지침은 모든 작업의 최우선 순위임.
-- **Persona:** 모든 에이전트는 '안티그래비티'의 페르소나를 유지하며, 한국어로 답변함.
-- **Output Format:** [결론/해결책] -> [코드/대본] -> [상세 설명] 순서의 두괄식 답변 준수.
+- **Video Rendering:** Remotion (React + TypeScript)
+- **Components:** `remotion/components/*.tsx`
+- **AI Analysis:** OpenAI API
+- **Asset Pipeline:** Python scripts in `pipline/execution/`
 
 ---
 
-# ⚙ Chronos Execution Pipeline
+## 🎨 확정 비주얼 시스템
 
-이 문서는 Chronos Engine의 실제 실행 순서를 정의한다. Code(스크립트/자동화)와 LLM(에이전트)의 역할을 명확히 분리하여 8단계로 작동한다.
+### 공통 금지 원칙
+- ❌ 네온 색상
+- ❌ Glow 효과
+- ❌ 화려한 그라데이션
+- ❌ 다크 배경 + 밝은 바 형태의 게임 UI (격투게임 스탯판 등)
+- ❌ `INT`, `STR` 같은 게임 약어
+
+### 배경 시스템
+| 번호 | 이름 | 용도 |
+|------|------|------|
+| 1번 | 다크 스톤 | 기본 내레이션 |
+| 2번 | 구겨진 종이 | 사료·문서 등장 |
+| 3번 | 전장 지도 | 전투·지리 씬 |
+
+### UI 레퍼런스 이미지
+| 컴포넌트 | 레퍼런스 경로 |
+|----------|--------------|
+| 자막바 (`SubtitleBar`) | `assets/ui_references/subtitle_reference.png` |
+| 스탯 카드 (`StatCard`) | `assets/ui_references/statcard_reference.png` |
+| 캐릭터 템플릿 | `assets/characters/_template/character_reference.png` |
+
+### 자막바 색상 스펙
+| 항목 | 값 |
+|------|-----|
+| 텍스트 배경 | `#F5F6F3` |
+| 텍스트 색상 | 굵은 검은색 |
+| 테두리 색상 | `#1E3A5F` |
+| 따옴표 그래픽 색상 | `#6E6F73` (대시 없음, 따옴표만) |
+| 모션 | **없음** |
+
+### 캐릭터 생성 파이프라인 (3단계)
+```
+[0단계] 레퍼런스: assets/characters/_template/character_reference.png
+        기존 2인 이미지 크롭(반 자르기) → 동물별 단독 이미지 분리
+
+[1단계] img2img + 프롬프트로 변형
+        - 동물 얼굴 종류 변경
+        - ※ 얼굴 변경 시 반드시 해당 동물의 자연 체색도 함께 변경 명시
+        - 시대 의상 변경 (몽골, 로마, 페르시아 등)
+        - 국기·문양 뱃지 변경
+        - "1명만 나오도록" 프롬프트 명시
+
+[2단계] 낙서 변환 프롬프트 적용
+        "첨부한 이미지를 개발새발 세상에서 제일 하찮은 선으로 그려줘.
+        배경은 흰색, 그림판에서 마우스로 그린 것 같은 픽셀 단위 그림.
+        야 됐고 그냥 니맘대로 그려."
+
+[완성] assets/characters/{nation}/doodle.png → 누끼(PNG 투명 배경)
+```
 
 ---
 
-## Stage 0 — Source Intake
+## ⚙️ Chronos Execution Pipeline (V4)
 
-**입력:**
-- `data/source/*.md`
-
-**LLM 역할:**
-- ❌ **사용 안함** (순수 Code 처리)
-
-**Code 역할:**
-- 파일 병합 및 텍스트 파싱
-- `source_master.md` 생성
-
-**출력:**
-- `data/source/{episode_id}_source.md`
+### 전체 흐름 요약
+```
+source.md
+  → [Stage 1] 역사 분석 → stats.json + optimized_analysis.md
+  → [Stage 2] 대본 작성 → script.md (v4 공식 + [VISUAL] 태그)
+  → [Stage 3] 대본 검수 → review_report.json
+  → [Stage 4] 사료 수집 계획 → visual_plan.json
+  → [Stage 5] 에셋 생성 → 사료 이미지 + 캐릭터 doodle.png
+  → [Stage 6] Remotion 조립 → final.mp4
+```
 
 ---
 
-## Stage 1 — Historical Game Analysis
+### Stage 0 — Source Intake
 
-**입력:**
-- `{episode_id}_source.md`
+**입력:** `data/source/*.md`
+**담당:** Code (LLM 없음)
+**작업:** 파일 병합 및 파싱
+**출력:** `data/source/{episode_id}_source.md`
 
-**LLM 역할 (`gpt-5.4-mini`):**
-- 역사 자료 → 게임 스탯 / 상성 / 티어 분석
+---
 
-**Code 역할:**
-- `stat_schema.json` 검증
-- 파일 저장
+### Stage 1 — Historical Analysis
+
+**입력:** `{episode_id}_source.md`
+**담당:** LLM (`gpt` 계열)
+**작업:**
+- 역사 자료 → 게임 스탯/상성/티어 분석
+- **출력 용도:** `[VISUAL]` 스탯 카드 데이터 전용 (대본에 스탯 수치 직접 삽입 금지)
 
 **출력:**
 - `data/stats/{episode_id}_stats.json`
@@ -79,131 +115,149 @@
 
 ---
 
-## Stage 2 — Longform Script Writing
+### Stage 2 — Script Writing (V4 공식 적용)
 
 **입력:**
 - `optimized_analysis.md`
 - `stats.json`
-- `template/pening_game_over_structure.md` (조건부 비극 에피소드용)
+- `directives/Chronos_Engine_Narrative_Formula_v4.md` (필독)
 
-**LLM 역할 (`gpt-5.4`):**
-- TierZoo 스타일 롱폼 대본 작성 (AV Script 포맷, VIDEO/AUDIO 분리, visual tags 포함)
-- 단 1회 호출로 최종 완성본 도출
+**담당:** LLM
 
-**Code 역할:**
-- 파일 저장 및 버전 관리
+**작업:**
+- **V4 대본 공식 기반** 순수 서사 대본 작성
+- 씬 단위로 `[VISUAL]` 태그 삽입
+- 스탯 수치는 대본 본문에 넣지 말고 `[VISUAL]` StatCard로만 표현
 
-**출력:**
-- `script.md` (v1/v2 분리 없이 단일 파일)
+**[VISUAL] 태그 형식:**
+```markdown
+[VISUAL]
+  배경: 1번 (다크 스톤)
+  조합: 사료 이미지 + 출처 + 말풍선
+  사료: {검색 키워드}
+  출처: {출처명}
+  말풍선: "{대사}"
+[/VISUAL]
+```
+
+**가능한 조합:**
+- 사료 이미지 + 출처 + 말풍선
+- 사료 이미지 + 출처 + 형광펜
+- 캐릭터 + 말풍선 + 텍스트
+- 픽토그램 + 텍스트
+- 배틀씬 단독
+- 스탯 카드 단독
+
+**출력:** `data/generated/{episode_id}/script.md`
 
 ---
 
-## Stage 3 — Script Review
+### Stage 3 — Script Review
 
-**입력:**
-- `script.md`
-
-**LLM 역할:**
-- ❌ **사용 안함** (순수 Code 처리)
-
-**Code 역할:**
-- 정규식 및 패턴 매칭을 통한 기계적 검수 (마크다운 표 구조, 단어 수, 필수 훅 존재 여부 등)
-- 통과 여부를 담은 채점표 자동 생성
-
-**출력:**
-- `review_report.json`
+**입력:** `script.md`
+**담당:** Code (LLM 없음)
+**작업:** 정규식 기반 자동 검수 (V4 체크리스트: 마디 리듬, 훅 존재 여부, VISUAL 태그 형식 등)
+**출력:** `data/generated/{episode_id}/review_report.json`
 
 ---
 
-## Stage 4 — Visual Planning (FIRST API CONNECTION)
+### Stage 4 — Visual Planning
 
 **입력:**
 - `script.md`
-- `.agents/skills/TierZoo_Styling_Guide/visual_tag_map.md`
-- `.agents/skills/TierZoo_Styling_Guide/scene_schema.json`
-- `.agents/skills/TierZoo_Styling_Guide/ui_schema.json`
 - `stats.json`
 
-**LLM 역할 (`gpt-5.4-nano`):**
-- 대본을 Remotion용 JSON 스키마로 변환
-- 이미지 생성 프롬프트 추출
+**담당:** LLM
 
-**Code 역할:**
-- 씬별 파일 파편화 방지 -> 단일 `scenario.json`으로 병합
+**작업:**
+- `[VISUAL]` 태그 → Remotion용 JSON 스키마로 변환
+- 사료 이미지 검색 키워드 추출
+- 캐릭터 등장 씬에서 동물 종류·의상·뱃지 정보 추출
 
 **출력:**
-- `scenario.json` (scene_00, 01 파편화 방지)
-- `image_prompts.md`
+- `data/generated/{episode_id}/scenario.json`
+- `data/generated/{episode_id}/asset_plan.json` (사료 검색 키워드 + 캐릭터 스펙)
 
 ---
 
-## Stage 5 — Asset Generation
+### Stage 5 — Asset Generation
 
-**입력:**
-- `image_prompts.md`
+**입력:** `asset_plan.json`
+**담당:** Code (LLM 없음)
 
-**LLM 역할:**
-- ❌ **사용 안함** (순수 Code 처리)
-
-**Code 역할:**
-- TubeFlow / Playwright batch / Google Flow 자동 실행 및 이미지 다운로드
+**작업:**
+1. **사료 이미지:** 키워드 기반 크롤링 → `assets/sources/{episode_id}/`
+2. **캐릭터 이미지:** 3단계 파이프라인 실행
+   - 레퍼런스 로드 → img2img 변형 → 낙서 변환 → 누끼
+   - 저장: `assets/characters/{nation}/doodle.png`
 
 **출력:**
-- `assets/generated/{episode_id}/images/*`
+- `assets/sources/{episode_id}/*.jpg`
+- `assets/characters/{nation}/doodle.png`
 
 ---
 
-## Stage 6 — Remotion Assembly
+### Stage 6 — Remotion Assembly
 
 **입력:**
 - `scenario.json`
-- `assets/images/*`
+- `assets/` (사료 이미지 + 캐릭터 누끼)
 - `remotion/components/*.tsx`
-- `remotion/components/SceneRenderer.tsx`
 
-**LLM 역할:**
-- ❌ **사용 안함** (순수 Code 처리)
+**담당:** Code (LLM 없음)
 
-**Code 역할:**
-- `npx remotion render` 자동 실행
+**컴포넌트 목록 (개발 우선순위 순):**
+| 순위 | 컴포넌트 | 설명 |
+|------|----------|------|
+| 1 | `<SubtitleBar />` | 사선 컷팅, `#6E6F73` 따옴표, 모션 없음 |
+| 2 | `<StatCard />` | 낙서 스타일 A/B/C형, 레퍼런스: `statcard_reference.png` |
+| 3 | `<WobblySpeechBubble />` | 캐릭터용 + 사료 오버레이용 |
+| 4 | `<HighlightText />` | 형광펜 긋기 애니메이션 |
+| 5 | `<Pictographic />` | SVG 픽토그램, spring() 애니메이션 |
+| 6 | `<BattleScene />` | 세력 충돌 배틀 씬 |
+| 7 | `<SourceBadge />` | 사료 출처 뱃지, 모션 없음 |
 
-**출력:**
-- `preview.mp4`
-- `final.mp4`
-
----
-
-## Stage 7 — Knowledge Feedback
-
-**입력:**
-- `final.mp4`
-- `script.md`
-
-**LLM 역할:**
-- ❌ **사용 안함** (순수 Code 처리)
-
-**Code 역할:**
-- 파일 및 데이터 로그를 Wiki에 이동 저장
-
-**출력:**
-- `knowledge_base/script-patterns/{episode_id}.md`
+**작업:** `npx remotion render` 실행
+**출력:** `output/{episode_id}/final.mp4`
 
 ---
 
-## 실제 엔진 구조 (최종 형태) & API 연결 위치
+### Stage 7 — Knowledge Feedback
 
-**크레딧 방어 최적화 흐름:**
-`source.md` → **Code** → `stats.json` (gpt-5.4-mini) → **TierZoo_Writer (gpt-5.4)** → `script.md` → **Code Check** → `review_report.json` → **Visual Director (gpt-5.4-nano)** → `scenario.json` & `prompts.md` → **Code Batch** → `images` → **Code Render** → `final.mp4` → **Code Backup**
+**입력:** `final.mp4`, `script.md`
+**담당:** Code (LLM 없음)
+**작업:** 결과물 및 로그를 knowledge_base에 아카이브
+**출력:** `knowledge_base/script-patterns/{episode_id}.md`
 
 ---
 
-## MVP 완성 기준 체크리스트
+## 📋 현재 진행 상황 (Progress Log)
 
-이게 되면 Chronos MVP 완성입니다:
-- [ ] `source.md` 넣기
-- [ ] `stats.json` 자동 생성 (gpt-5.4-mini)
-- [ ] `script.md` 단일 자동 생성 (gpt-5.4)
-- [ ] `review_report.json` 코드 기반 자동 생성 (LLM ❌)
-- [ ] `scenario.json` 단일 파일 생성 (gpt-5.4-nano)
-- [ ] `remotion render` 실행 (LLM ❌)
-- [ ] `mp4` 출력
+- [2026-04-07] 프로젝트 환경 설정 및 Global Rules 정의 완료.
+- [2026-04-07] 5가지 전문 요원 워크플로우(blueprint, reflector, fix, ui-polish, doc) 등록 완료.
+- [2026-04-24] 리모션 2D 플랫 UI 컴포넌트 7종 및 동적 `SceneRenderer` 개발 완료.
+- [2026-05-10] **대본 스타일 공식 V4.0 확정.** `directives/Chronos_Engine_Narrative_Formula_v4.md`
+- [2026-05-12] **비주얼 전략 V4 전면 개편.** 낙서체 캐릭터, 클린 인포테인먼트 UI 확정.
+- [2026-05-14] **디자인 사양 최종 확정.**
+  - 자막바: 사선 컷팅 + `#6E6F73` 따옴표(대시 없음) + `#F5F6F3` 배경
+  - 캐릭터: 낙서(Doodle)체 + 3단계 생성 파이프라인
+  - 스탯카드: 낙서 스타일 (레퍼런스: `assets/ui_references/statcard_reference.png`)
+  - UI 레퍼런스 이미지 `assets/ui_references/` 폴더에 보존 완료.
+
+---
+
+## 🔜 Next Steps (Todo)
+
+1. [ ] **리모션 컴포넌트 개발** — `<SubtitleBar />` 부터 시작 (레퍼런스: `subtitle_reference.png`)
+2. [ ] **캐릭터 파일럿 제작** — 몽골(늑대) 낙서체 1종, 누끼 PNG
+3. [ ] **Stage 4, 5 스크립트 개편** — 사료 크롤링 + 3단계 캐릭터 생성 자동화
+4. [ ] **`scenario.json` 스키마 재정의** — `[VISUAL]` 태그 → JSON 변환 규칙 확정
+
+---
+
+## ⚠️ Project Rules
+
+- **Supreme Authority:** 이 파일(`orchestration.md`)의 지침은 모든 작업의 최우선 순위.
+- **디자인 최종 권위:** `reports/Chronos_V4_Vision.md`
+- **Persona:** 모든 에이전트는 한국어로 답변.
+- **Output Format:** [결론/해결책] → [코드] → [상세 설명] 순서의 두괄식 답변 준수.

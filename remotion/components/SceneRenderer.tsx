@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill } from 'remotion';
+import { AbsoluteFill, staticFile } from 'remotion';
 import { SubtitleBar } from './SubtitleBar';
 import { StatCard } from './StatCard';
 import { WobblySpeechBubble } from './WobblySpeechBubble';
@@ -8,6 +8,18 @@ import { Pictographic } from './Pictographic';
 import { BattleScene } from './BattleScene';
 import { SourceBadge } from './SourceBadge';
 import { colors } from '../designTokens';
+
+// 배경 이미지 경로 매핑 (assets/bg/ 폴더의 실제 이미지)
+const BG_MAP: Record<string, string> = {
+  '1': staticFile('assets/bg/1.jpg'),
+  '2': staticFile('assets/bg/2.jpg'),
+  '3': staticFile('assets/bg/3.jpg'),
+};
+
+// 캐릭터에 흰색 sticker 테두리를 입히는 CSS filter
+// drop-shadow를 여러 방향으로 겹쳐서 두꺼운 흰색 외곽선처럼 보이게 만듦
+const STICKER_BORDER_FILTER =
+  'drop-shadow(0 0 8px white) drop-shadow(0 0 8px white) drop-shadow(0 0 8px white)';
 
 export type ComponentConfig = {
   type: 'StatCard' | 'WobblySpeechBubble' | 'HighlightText' | 'Pictographic' | 'BattleScene' | 'SourceBadge' | 'SourceImage' | 'CharacterDoodle';
@@ -24,17 +36,15 @@ export type SceneData = {
 
 export const SceneRenderer: React.FC<{ sceneData: SceneData }> = ({ sceneData }) => {
   const { background, components, text } = sceneData;
-
-  // 배경 맵핑 규칙
-  const bgColors: Record<string, string> = {
-    '1': '#0D1117', // 다크 스톤
-    '2': '#F8F8F0', // 구겨진 종이
-    '3': '#2B2B2B', // 전장 지도
-  };
-  const bgColor = bgColors[background] || bgColors['1'];
+  const bgSrc = BG_MAP[background] ?? BG_MAP['1'];
 
   return (
-    <AbsoluteFill style={{ backgroundColor: bgColor, justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+    <AbsoluteFill style={{ justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
+      {/* 배경 이미지: assets/bg/{1|2|3}.jpg */}
+      <img
+        src={bgSrc}
+        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+      />
       
       {/* 씬 컴포넌트 렌더링 */}
       {components?.map((comp, idx) => {
@@ -56,10 +66,11 @@ export const SceneRenderer: React.FC<{ sceneData: SceneData }> = ({ sceneData })
           case 'SourceBadge':
             return <SourceBadge key={idx} {...comp.props} />;
           case 'SourceImage': 
-            // 사료 이미지를 구겨진 종이 위에 올린 듯 연출
+            // 사료 이미지: 종이 위에 올린 듯 기울어진 보더
             return <img key={idx} src={comp.props.src} style={{ ...positionStyle, width: comp.props.width || '800px', border: `8px solid ${colors.inkBorder}`, transform: 'rotate(-1.5deg)', boxShadow: '8px 12px 0 rgba(0,0,0,0.1)' }} />;
           case 'CharacterDoodle':
-            return <img key={idx} src={comp.props.src} style={{ ...positionStyle, height: comp.props.height || '500px', objectFit: 'contain' }} />;
+            // 캐릭터 누끼 이미지: 흰색 sticker 테두리 filter 적용
+            return <img key={idx} src={comp.props.src} style={{ ...positionStyle, height: comp.props.height || '500px', objectFit: 'contain', filter: STICKER_BORDER_FILTER }} />;
           default:
             return null;
         }
